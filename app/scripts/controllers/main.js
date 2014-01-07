@@ -1,22 +1,27 @@
 'use strict';
 
 angular.module('lunchButtonApp')
-  .controller('MainCtrl', ['$scope', 'Foursquareapi', 'Geolocation', function ($scope, Foursquareapi, Geolocation) {
-
-    var getRandomInt = function (min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-
-    var getRandomVenue = function (venues) {
-      var len = venues.length;
-      return venues[getRandomInt(0, len-1)];
-    };
-
+  .controller('MainCtrl', ['$scope', 'Foursquareapi', 'Geolocation', 'Utils', function ($scope, Foursquareapi, Geolocation, Utils) {
     $scope.getRandomLunchVenue = function () {
+      if ($scope.loading) {
+        return;
+      }
+
+      $scope.loading = true;
+      $scope.done = false;
+      var position;
       Geolocation.getCurrentPosition()
-        .then(Foursquareapi.getVenues)
-        .then(function (venues) {
-          $scope.venue = getRandomVenue(venues);
+        .then(function (pos) {
+          position = pos;
+          return Foursquareapi.getVenues(position);
+        }).then(function (venues) {
+          var venue = Utils.getRandomArrayItem(venues);
+          return Foursquareapi.getOneVenue(venue.id, position);
+        }).then(function (venue) {
+          $scope.venue = venue;
+          $scope.tip = Foursquareapi.getRandomTipForVenue(venue);
+          $scope.loading = false;
+          $scope.done = true;
         });
     };
   }]);
