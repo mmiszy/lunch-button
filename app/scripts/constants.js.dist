@@ -1,10 +1,10 @@
 angular.module('lunchButtonApp')
   .constant('FOURSQUARE', Object.create(null, {
     CLIENT_ID: {
-      value: ''
+      value: CLIENT_ID_PLACEHOLDER
     },
     CLIENT_SECRET: {
-      value: ''
+      value: CLIENT_SECRET_PLACEHOLDER
     },
     API_ADDRESS: {
       value: 'https://api.foursquare.com/v2/'
