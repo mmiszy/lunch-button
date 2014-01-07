@@ -292,6 +292,17 @@ module.exports = function (grunt) {
         'htmlmin'
       ]
     },
+    cucumberjs: {
+      files: 'features/*.feature'
+    },
+    shell: {
+      selenium: {
+        command: './node_modules/protractor/bin/webdriver-manager start',
+        options: {
+          stdout: true
+        }
+      }
+    },
     karma: {
       unit: {
         configFile: 'karma.conf.js',
@@ -324,6 +335,11 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-cucumber');
+  grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks('grunt-shell');
+
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -338,12 +354,17 @@ module.exports = function (grunt) {
     ]);
   });
 
+  grunt.registerTask('selenium', [
+    'shell:selenium'
+  ]);
+
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'cucumberjs'
   ]);
 
   grunt.registerTask('build', [
