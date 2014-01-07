@@ -1,0 +1,23 @@
+angular.module('lunchButtonApp')
+  .constant('FOURSQUARE', Object.create(null, {
+    CLIENT_ID: {
+      value: ''
+    },
+    CLIENT_SECRET: {
+      value: ''
+    },
+    API_ADDRESS: {
+      value: 'https://api.foursquare.com/v2/'
+    },
+    API_VERSION: {
+      value: '20140107'
+    },
+    CATEGORIES: {
+      value: Object.create(null, {
+        Food: {
+          value: '4d4b7105d754a06374d81259'
+        }
+      })
+    }
+  }))
+  .constant('MAX_DISTANCE', 25000);
