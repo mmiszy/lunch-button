@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lunchButtonApp')
-  .controller('MainCtrl', ['$scope', 'Foursquareapi', 'Geolocation', 'Utils', function ($scope, Foursquareapi, Geolocation, Utils) {
+  .controller('MainCtrl', ['$scope', '$window', 'Foursquareapi', 'Geolocation', 'Utils', function ($scope, $window, Foursquareapi, Geolocation, Utils) {
     $scope.getRandomLunchVenue = function () {
       if ($scope.loading) {
         return;
@@ -24,4 +24,6 @@ angular.module('lunchButtonApp')
           $scope.done = true;
         });
     };
+
+    $window.addEventListener('shake', $scope.getRandomLunchVenue, false);
   }]);
