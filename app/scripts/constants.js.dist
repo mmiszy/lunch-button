@@ -14,7 +14,7 @@ angular.module('lunchButtonApp')
     },
     CATEGORIES: {
       value: Object.create(null, {
-        Food: {
+        meal: {
           value: '4d4b7105d754a06374d81259'
         }
       })
