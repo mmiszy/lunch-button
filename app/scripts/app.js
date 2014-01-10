@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('lunchButtonApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'ngTouch',
+  'ngAnimate',
+  'angular-carousel'
 ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider

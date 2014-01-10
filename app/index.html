@@ -7,6 +7,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
     <!-- tell iOS that this app can work in full screen mode. No need for navbars -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="apple-touch-startup-image" href="./images/launchimage.png">
@@ -18,13 +20,17 @@
     <meta property="og:site_name" content="ShakeMeal"/>
     <meta property="og:url" content="http://shakemeal.thecometcult.com/">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary"> 
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:url" content="http://shakemeal.thecometcult.com/">
     <meta name="twitter:title" content="ShakeMeal">
     <meta name="twitter:description" content="Shake to find a nearby place to eat!">
     <meta name="twitter:image" content="http://shakemeal.thecometcult.com/staticimages/twitter_share.png">
     <meta name="twitter:creator" content="@TheCometCult">
 
+    <!-- build:css styles/vendor.css -->
+    <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css">
+    <link rel="stylesheet" href="bower_components/angular-rn-carousel/dist/angular-carousel.css">
+    <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -40,11 +46,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
-    <div class="footer text-center">
-      <p>♥ from The Comet Cult team</p>
-      <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="recommend" data-show-faces="true" data-share="true"></div>
-    </div>
+    <main role="main" ng-view></main>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -61,26 +63,14 @@
     <script src="bower_components/angular/angular.js"></script>
 
     <!-- build:js scripts/plugins.js -->
-    <script src="bower_components/sass-bootstrap/js/affix.js"></script>
-    <script src="bower_components/sass-bootstrap/js/alert.js"></script>
-    <script src="bower_components/sass-bootstrap/js/button.js"></script>
-    <script src="bower_components/sass-bootstrap/js/carousel.js"></script>
-    <script src="bower_components/sass-bootstrap/js/transition.js"></script>
-    <script src="bower_components/sass-bootstrap/js/collapse.js"></script>
-    <script src="bower_components/sass-bootstrap/js/dropdown.js"></script>
-    <script src="bower_components/sass-bootstrap/js/modal.js"></script>
-    <script src="bower_components/sass-bootstrap/js/scrollspy.js"></script>
-    <script src="bower_components/sass-bootstrap/js/tab.js"></script>
-    <script src="bower_components/sass-bootstrap/js/tooltip.js"></script>
-    <script src="bower_components/sass-bootstrap/js/popover.js"></script>
     <!-- endbuild -->
     <!-- build:js scripts/modules.js -->
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/swiftclick/js/dist/swiftclick.min.js"></script>
     <script src="bower_components/shake.js/shake.js"></script>
+    <script src="bower_components/angular-rn-carousel/dist/angular-carousel.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->

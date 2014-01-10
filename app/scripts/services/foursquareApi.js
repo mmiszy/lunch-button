@@ -9,9 +9,9 @@ angular.module('lunchButtonApp')
       });
     };
 
-    this.getVenues = function (position) {
+    this.getVenues = function (position, category) {
       var deferred = $q.defer();
-      var categories = [FOURSQUARE.CATEGORIES.Food].join(',');
+      var categories = [FOURSQUARE.CATEGORIES[category]].join(',');
       var ll = [position.coords.latitude, position.coords.longitude].join(',');
 
       $http({
