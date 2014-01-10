@@ -2,10 +2,13 @@
 
 angular.module('lunchButtonApp')
   .controller('MainCtrl', ['$scope', '$window', 'Foursquareapi', 'Geolocation', 'Utils', function ($scope, $window, Foursquareapi, Geolocation, Utils) {
-    $scope.getRandomLunchVenue = function () {
+    $scope.categories = ['meal']; // ['meal', 'beer'];
+
+    $scope.getRandomLunchVenue = function (category) {
       if ($scope.loading) {
         return;
       }
+      category = category || 'meal';
 
       $scope.loading = true;
       $scope.done = false;
@@ -13,7 +16,7 @@ angular.module('lunchButtonApp')
       Geolocation.getCurrentPosition()
         .then(function (pos) {
           position = pos;
-          return Foursquareapi.getVenues(position);
+          return Foursquareapi.getVenues(position, category);
         }).then(function (venues) {
           var venue = Utils.getRandomArrayItem(venues);
           return Foursquareapi.getOneVenue(venue.id, position);
@@ -22,6 +25,7 @@ angular.module('lunchButtonApp')
           $scope.tip = Foursquareapi.getRandomTipForVenue(venue);
           $scope.loading = false;
           $scope.done = true;
+          $scope.currentCategory = category;
         });
     };
 
