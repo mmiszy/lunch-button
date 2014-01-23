@@ -8,7 +8,10 @@ angular.module('lunchButtonApp')
       if ($scope.loading) {
         return;
       }
-      category = category || 'meal';
+      if (typeof category !== 'string') {
+        category = '';
+      }
+      category = category || $scope.currentCategory || 'meal';
 
       $scope.loading = true;
       $scope.done = false;
