@@ -11,6 +11,8 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
+  var seleniumPid = null;
+
   grunt.initConfig({
     yeoman: {
       // configurable paths
@@ -302,7 +304,7 @@ module.exports = function (grunt) {
       ]
     },
     cucumberjs: {
-      files: 'features/*.feature'
+      src: 'features'
     },
     shell: {
       selenium: {
@@ -372,7 +374,10 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma',
+    'karma'
+  ]);
+
+  grunt.registerTask('e2e', [
     'cucumberjs'
   ]);
 
