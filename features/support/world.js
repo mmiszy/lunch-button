@@ -4,8 +4,7 @@ var assert = require('assert'),
     protractor = require('protractor'),
     webdriver = require('selenium-webdriver'),
     exec = require('child_process').exec,
-    util = require('util')
-;
+    util = require('util');
 
 var driver = new webdriver.Builder().usingServer('http://localhost:4444/wd/hub').withCapabilities(webdriver.Capabilities[browserName]()).build();
 

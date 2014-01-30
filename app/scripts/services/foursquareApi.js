@@ -5,7 +5,17 @@ angular.module('lunchButtonApp')
 
     var filterBadVenues = function (venues) {
       return venues.filter(function (venue) {
-        return !!venue.stats.tipCount;
+        if (!venue.stats.tipCount) {
+          return false;
+        }
+
+        for (var i = 0, l = venue.categories.length; i < l; ++i) {
+          if (FOURSQUARE.EXCLUDED_CATEGORIES.indexOf(venue.categories[i].id) >= 0) {
+            return false;
+          }
+        }
+
+        return true;
       });
     };
 
