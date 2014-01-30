@@ -302,7 +302,7 @@ module.exports = function (grunt) {
       ]
     },
     cucumberjs: {
-      files: 'features/*.feature'
+      src: 'features'
     },
     shell: {
       selenium: {
@@ -372,7 +372,10 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma',
+    'karma'
+  ]);
+
+  grunt.registerTask('e2e', [
     'cucumberjs'
   ]);
 

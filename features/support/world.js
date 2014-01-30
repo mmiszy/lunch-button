@@ -1,24 +1,41 @@
-var assert = require('assert');
-var path = require('path');
+var assert = require('assert'),
+    path = require('path'),
+    browserName = process.env.browser || 'chrome',
+    protractor = require('protractor'),
+    webdriver = require('selenium-webdriver'),
+    exec = require('child_process').exec,
+    util = require('util');
 
-var protractor = require('protractor');
-var webdriver = require('selenium-webdriver');
-
-var driver = new webdriver.Builder().
-  usingServer('http://localhost:4444/wd/hub').
-  withCapabilities(webdriver.Capabilities.chrome()).
-  build();
+var driver = new webdriver.Builder().usingServer('http://localhost:4444/wd/hub').withCapabilities(webdriver.Capabilities[browserName]()).build();
 
 driver.manage().timeouts().setScriptTimeout(100000);
 
-var ptor = protractor.wrapDriver(driver);
+var browser = protractor.wrapDriver(driver);
 
-var World = function (callback) {
-	this.browser = ptor;
-	this.By = protractor.By;
-	this.assert = assert;
+module.exports = function() {
+  this.registerHandler('AfterFeatures', function (e, done) {
+    browser.quit();
 
-	callback(this);
+    if (browserName === 'chrome') {
+      exec('pkill chromedriver');
+    } else if (browserName === 'phantomjs') {
+      exec('pkill phantomjs');
+    }
+
+    setTimeout(function() {
+       done();
+    }, 500);
+  });
+
+  this.World = module.exports.World;
 };
 
-exports.World = World;
+module.exports.World = function World(callback) {
+  this.browser = browser;
+  this.By = protractor.By;
+  this.p = protractor;
+  this.assert = assert;
+  this.baseUrl = 'http://localhost:9000/';
+
+  callback();
+};

@@ -14,8 +14,10 @@ How to test
 
 Run:
 
+In separate terminal instances run one command:
+
 ```bash
 grunt server
 grunt selenium
-grunt test
+grunt e2e
 ```
