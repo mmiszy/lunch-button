@@ -9,11 +9,11 @@ $color-loaded: white;
 
 $color-white: white;
 $color-title: #f05a23;
-$color-subtitle: #b2b2b2;
+$color-subtitle: #404040;
 $color-address: #404040;
 $color-light: #f2f2f2;
-$color-footer: #ffd97e;
-$font-family-normal: Montserrat, sans-serif;
+$color-footer: #cc981b;
+$font-family-normal: 'Raleway', sans-serif;
 
 $rwdBigPhone: "(min-width: 500px)";
 $rwdDesktop: "(min-width: 800px)";
@@ -35,7 +35,7 @@ html, body, main, .container, .rn-carousel-container, .swipe-container {
     height: auto;
     padding-bottom: 3em;
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 body {
@@ -54,7 +54,7 @@ body {
 }
 
 .category {
-    padding: 3em 4em;
+    padding: 2em 4em;
     @include box-sizing(border-box);
     position: relative;
     height: 100%;
@@ -67,8 +67,8 @@ body {
 
     background: {
         repeat: no-repeat;
-        position: 50% 50%;
-        size: 50%;
+        position: 50% 35%;
+        size: 40%;
     }
 }
 
@@ -84,22 +84,45 @@ body {
 }
 
 footer.tcc {
-    font-size: 1.6em;
+    font-size: 1.0em;
+    font-weight: 800;
     color: $color-footer;
     text-align: center;
     position: absolute;
-    bottom: 3em;
+    bottom: 2em;
     left: 0;
     width: 100%;
     text-align: center;
+    text-transform: uppercase;
+
+    span {
+        display: none;
+    }
+}
+
+header.top {
+    font-weight: 800;
+    color: $color-footer;
+    text-align: center;
+    font-size: 1.5em;
+    text-transform: uppercase;
 }
 
 .swipe-instruction {
-    display: none;
+    display: block;
+    color: white;
+    font-family: $font-family-normal;
+    font-weight: 800;
+    font-size: 2.0em;
+    line-height: 1.2;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 25em;
+    bottom: 25vh;
+    letter-spacing: .1em;
 }
-
-
-
 
 .button {
     border: none;
@@ -107,11 +130,8 @@ footer.tcc {
     margin: 0 auto;
     display: block;
     font-size: 2em;
-    text-transform: uppercase;
-    font-weight: 400;
-    max-width: 300px;
-    width: 100%;
-    letter-spacing: .1em;
+    font-weight: 800;
+    line-height: 1;
 
     &:focus {
         outline: none;
@@ -123,24 +143,27 @@ footer.tcc {
     background-color: $color-loaded;
     display: table;
     padding: 0;
+
+    .mealshake-logo {
+        position: absolute;
+        bottom: 1em;
+        left: 0;
+        width: 100%;
+        text-align: center;
+
+        img {
+            max-width: 30px;
+        }
+    }
 }
 
 .venue {
     @include box-sizing(border-box);
     padding: 3em 3em 0 3em;
-    // max-height: -webkit-calc(100% - 12em);
-    // max-height: calc(100% - 12em);
-
-    // &:after {
-    //     position: absolute;
-    //     bottom: 0;
-    //     left: 0;
-    //     height: 100%;
-    //     width: 100%;
-    //     content: "";
-    //     @include background(linear-gradient(rgba(255, 255,255, 0) 60%, rgba(255, 255, 255, 1) 75%));
-    //     pointer-events: none;
-    // }
+    text-align: center;
+    max-height: -webkit-calc(100vh - 3em);
+    max-height: calc(100vh - 3em);
+    overflow: hidden;
 }
 
 .venue-link {
@@ -181,20 +204,13 @@ footer.tcc {
 }
 
 .venue-tip {
-    font-weight: 400;
+    font-weight: 300;
     color: $color-subtitle;
     font-size: 1.8em;
     line-height: 1.3;
     margin: 0 0 2em 0;
-
-    text-align: justify;
-    word-break: break-all;
-    word-break: break-word;
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
-
     text-indent: -.4em;
+
     &::before {
         content: "\00201C";
     }
@@ -203,33 +219,28 @@ footer.tcc {
     }
 }
 
+.button-container {
+    position: fixed;
+    width: 100%;
+    padding: 2.5em 0 4.5em;
+    bottom: 0;
+
+    @include background-image(linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 20%,rgba(255,255,255,1) 100%));
+}
+
 .shake-button {
     @extend .button;
-    width: -webkit-calc(100% - 3em);
-    width: calc(100% - 3em);
+    width: 240px;
     // position: absolute;
     // bottom: 2em;
     // left: 1.5em;
-    border-radius: 4em;
-    height: 4em;
-    background: {
-        color: $color-meal-bg;
-        image: url(../images/meal-bg-opacity.png);
-        repeat: no-repeat;
-        position: 50% 50%;
-        size: 30%;
-    }
+    border-radius: .3em;
+    height: 3em;
+    background-color: $color-meal-bg;
+    color: $color-main;
 
     .loading & {
-        @include animation(shake-bg-mobile .5s infinite);
-
-        img {
-            @include animation(shake .5s infinite);
-        }
-    }
-
-    img {
-        max-width: 80%;
+        @include animation(shake .5s infinite);
     }
 }
 
@@ -237,7 +248,7 @@ footer.tcc {
     &.ng-hide-add {
         @include transition(.6s ease-in all);
         @include transform(translate3d(0, -100%, 0));
-        display: block !important;
+        display: table !important;
     }
 
     &.ng-hide-add.ng-hide-add-active {
@@ -249,7 +260,7 @@ footer.tcc {
     &.ng-hide-remove {
         @include transition(.6s ease-out all);
         @include transform(translate3d(0, -100%, 0));
-        display: block !important;
+        display: table !important;
     }
 
     &.ng-hide-remove.ng-hide-remove-active {
@@ -265,6 +276,10 @@ footer.tcc {
 
 
 @media screen and #{$rwdBigPhone} {
+    .venue {
+        padding-top: 4em;
+    }
+
     .meal-category {
         background-size: 100px;
 
@@ -281,45 +296,84 @@ footer.tcc {
         }
     }
 
-    .swipe-instruction {
-        display: block;
-        color: white;
-        text-transform: uppercase;
-        font-family: $font-family-normal;
-        font-weight: bold;
-        font-size: 1.1em;
-        line-height: 1.6;
-        text-align: center;
-        position: absolute;
-        left: 0;
-        width: 100%;
-        bottom: 20em;
-        bottom: 20vh;
-        letter-spacing: .1em;
+    .venue-container {
+        vertical-align: middle;
     }
 
     .result {
         margin: 0 auto;
         max-width: 600px;
+
+        .mealshake-logo {
+            position: static;
+
+            img {
+                max-width: 40px;
+            }
+        }
     }
 
     .shake-button {
-        margin: 2.5em 1.5em;
+        margin: 2.5em auto;
     }
 
     .venue-tip {
-        font-size: 1.5em;
-        line-height: 1.6;
+        font-size: 1.6em;
+        line-height: 1.5;
     }
 
     footer.tcc {
-        font-size: 1.4em;
+        font-size: 1.0em;
         bottom: 2em;
+        line-height: 1.8;
+
+        span {
+            display: inline;
+        }
+    }
+
+    header.top {
+        font-size: 2.0em;
+    }
+
+    .swipe-instruction {
+        top: 18em;
+        top: 50vh;
+    }
+
+    .button-container {
+        position: static;
+        width: 100%;
+        padding: 0;
+
+        background-image: none;
+    }
+
+    .shake-button {
+        margin-top: 1.5em;
     }
 }
 
 @media screen and #{$rwdDesktop} {
 
+}
+
+.desktop-hide {
+    display: block;
+}
+
+.mobile-hide {
+    display: none;
+}
+
+@media screen and #{$rwdBigPhone} {
+    .mobile-hide {
+        display: block;
+    }
+
+    .desktop-hide {
+        display: none;
+    }
 }
 
 
@@ -344,37 +398,37 @@ footer.tcc {
 }
 
 @-webkit-keyframes shake-bg-mobile {
-    0%, 100% {background-position: 50% 50%; }
-    10%, 30%, 50%, 70%, 90% {background-position: 40% 50%; }
-    20%, 40%, 60%, 80% {background-position: 60% 50%; }
+    0%, 100% {background-position: 50% 35%; }
+    10%, 30%, 50%, 70%, 90% {background-position: 40% 35%; }
+    20%, 40%, 60%, 80% {background-position: 60% 35%; }
 }
 
 @-moz-keyframes shake-bg-mobile {
-    0%, 100% {background-position: 50% 50%; }
-    10%, 30%, 50%, 70%, 90% {background-position: 40% 50%; }
-    20%, 40%, 60%, 80% {background-position: 60% 50%; }
+    0%, 100% {background-position: 50% 35%; }
+    10%, 30%, 50%, 70%, 90% {background-position: 40% 35%; }
+    20%, 40%, 60%, 80% {background-position: 60% 35%; }
 }
 
 @keyframes shake-bg-mobile {
-    0%, 100% {background-position: 50% 50%; }
-    10%, 30%, 50%, 70%, 90% {background-position: 40% 50%; }
-    20%, 40%, 60%, 80% {background-position: 60% 50%; }
+    0%, 100% {background-position: 50% 35%; }
+    10%, 30%, 50%, 70%, 90% {background-position: 40% 35%; }
+    20%, 40%, 60%, 80% {background-position: 60% 35%; }
 }
 
 @-webkit-keyframes shake-bg {
-    0%, 100% {background-position: 50% 50%; }
-    10%, 30%, 50%, 70%, 90% {background-position: 49% 50%; }
-    20%, 40%, 60%, 80% {background-position: 51% 50%; }
+    0%, 100% {background-position: 50% 35%; }
+    10%, 30%, 50%, 70%, 90% {background-position: 49% 35%; }
+    20%, 40%, 60%, 80% {background-position: 51% 35%; }
 }
 
 @-moz-keyframes shake-bg {
-    0%, 100% {background-position: 50% 50%; }
-    10%, 30%, 50%, 70%, 90% {background-position: 49% 50%; }
-    20%, 40%, 60%, 80% {background-position: 51% 50%; }
+    0%, 100% {background-position: 50% 35%; }
+    10%, 30%, 50%, 70%, 90% {background-position: 49% 35%; }
+    20%, 40%, 60%, 80% {background-position: 51% 35%; }
 }
 
 @keyframes shake-bg {
-    0%, 100% {background-position: 50% 50%; }
-    10%, 30%, 50%, 70%, 90% {background-position: 49% 50%; }
-    20%, 40%, 60%, 80% {background-position: 51% 50%; }
+    0%, 100% {background-position: 50% 35%; }
+    10%, 30%, 50%, 70%, 90% {background-position: 49% 35%; }
+    20%, 40%, 60%, 80% {background-position: 51% 35%; }
 }
