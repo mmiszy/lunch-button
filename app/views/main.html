@@ -1,5 +1,6 @@
 <div class="container result" ng-hide="!venue" ng-class="{'loading': loading}">
     <section class="venue-container">
+        <footer class="mealshake-logo"><img src="/images/meal-footer.png" alt=""></footer>
         <div class="venue">
             <a class="venue-link" ng-href="{{venue.canonicalUrl}}" target="_blank">
                 <h1 ng-bind="venue.name" class="venue-title"></h1>
@@ -10,17 +11,21 @@
             </a>
             <blockquote ng-bind="tip.text" class="venue-tip"></blockquote>
         </div>
-        <button class="shake-button" ng-click="getRandomLunchVenue(currentCategory)">
-            <img ng-if="currentCategory" ng-src="images/{{currentCategory}}-title.png" class="category-title" alt="Shake for {{currentCategory}}!">
-        </button>
+        <div class="button-container">
+            <button class="shake-button" ng-click="getRandomLunchVenue(currentCategory)">
+                <span class="desktop-hide">Shake for meal</span>
+                <span class="mobile-hide">Click for meal</span>
+            </button>
+        </div>
     </section>
 </div>
 <div class="container main" ng-hide="venue" ng-class="{'loading': loading}">
     <ul class="swipe-container">
         <li ng-repeat="cat in categories" ng-class="cat+'-category'" class="category" ng-click="getRandomLunchVenue()">
-            <img ng-if="cat" ng-src="images/{{cat}}-title.png" class="category-title" alt="Shake for {{cat}}!">
-            <p class="swipe-instruction">Click on the icon <br> to find a place to eat</p>
-            <footer class="tcc">made with&nbsp;&nbsp;♡&nbsp;&nbsp;by The Comet Cult</footer>
+            <header class="top">Mealshaker</header>
+            <p class="swipe-instruction desktop-hide">Shake your phone to <br> find a place to eat.</p>
+            <p class="swipe-instruction mobile-hide">Click the icon to find a <br> place to eat.</p>
+            <footer class="tcc"><span>Visit this site on your phone and shake it like a mad man<br></span>made with&nbsp;&nbsp;♡&nbsp;&nbsp;by The Comet Cult</footer>
         </li>
     </ul>
 </div>
