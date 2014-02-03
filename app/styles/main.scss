@@ -98,6 +98,11 @@ footer.tcc {
     span {
         display: none;
     }
+
+    a {
+        color: $color-footer;
+        text-decoration: none;
+    }
 }
 
 header.top {

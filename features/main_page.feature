@@ -5,4 +5,4 @@ Feature: Shaking for meal
 
     Scenario: Main site
         When I am on homepage
-        Then I should see the shake icon
+        Then I should see the foursquare link in the footer
