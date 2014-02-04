@@ -15,6 +15,9 @@ $color-light: #f2f2f2;
 $color-footer: #cc981b;
 $font-family-normal: 'Raleway', sans-serif;
 
+$color-fb: #3e5d95;
+$color-twitter: #2aafea;
+
 $rwdBigPhone: "(min-width: 500px)";
 $rwdDesktop: "(min-width: 800px)";
 
@@ -99,7 +102,7 @@ footer.tcc {
         display: none;
     }
 
-    a {
+    > a {
         color: $color-footer;
         text-decoration: none;
     }
@@ -125,7 +128,7 @@ header.top {
     left: 0;
     width: 100%;
     bottom: 25em;
-    bottom: 25vh;
+    bottom: 37vh;
     letter-spacing: .1em;
 }
 
@@ -137,9 +140,50 @@ header.top {
     font-size: 2em;
     font-weight: 800;
     line-height: 1;
+    @include box-sizing(border-box);
+    cursor: pointer;
 
     &:focus {
         outline: none;
+    }
+}
+
+.share-buttons {
+    width: 240px;
+    margin: 0 auto 1em;
+    @include clearfix();
+
+    > button, > a {
+        @extend .button;
+
+        width: 50%;
+        height: 4em;
+        border: 2px solid $color-footer;
+        background-color: transparent;
+        border-radius: .3em;
+        padding: 0;
+        height: 2.2em;
+        color: transparent;
+        background: {
+            image: url(../images/social.png);
+            repeat: no-repeat;
+            size: 21px;
+        }
+    }
+
+    .facebook {
+        float: left;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right-width: 1px;
+        background-position: 50% 10px;
+    }
+    .twitter {
+        float: right;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left-width: 1px;
+        background-position: 50% -65px;
     }
 }
 
@@ -158,6 +202,24 @@ header.top {
 
         img {
             max-width: 30px;
+        }
+    }
+
+    .share-buttons {
+        margin: 1em auto 0;
+
+        > button, > a {
+            border: none;
+        }
+
+        .facebook {
+            background-color: $color-fb;
+            background-position: 50% -25px;
+        }
+
+        .twitter {
+            background-color: $color-twitter;
+            background-position: 50% -100px;
         }
     }
 }

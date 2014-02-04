@@ -9,6 +9,8 @@
 
     <link href='http://fonts.googleapis.com/css?family=Raleway:300,800' rel='stylesheet' type='text/css'>
 
+    <meta name="shortcut icon" href="favicon.ico">
+
     <!-- tell iOS that this app can work in full screen mode. No need for navbars -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -25,16 +27,17 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <meta property="og:image" content="http://shakemeal.thecometcult.com/staticimages/facebook_share.png">
-    <meta property="og:title" content="ShakeMeal - shake it to find a nearby place to eat!">
-    <meta property="og:site_name" content="ShakeMeal"/>
-    <meta property="og:url" content="http://shakemeal.thecometcult.com/">
+    <meta property="og:image" content="http://mealshaker.com/staticimages/facebook-sharer-image.png">
+    <meta property="og:title" content="Mealshaker - shake it to find a nearby place to eat!">
+    <meta property="og:site_name" content="Mealshaker"/>
+    <meta property="og:url" content="http://mealshaker.com/">
     <meta property="og:type" content="website">
+
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:url" content="http://shakemeal.thecometcult.com/">
-    <meta name="twitter:title" content="ShakeMeal">
+    <meta name="twitter:url" content="http://mealshaker.com/">
+    <meta name="twitter:title" content="Mealshaker">
     <meta name="twitter:description" content="Shake to find a nearby place to eat!">
-    <meta name="twitter:image" content="http://shakemeal.thecometcult.com/staticimages/twitter_share.png">
+    <meta name="twitter:image" content="http://mealshaker.com/staticimages/twitter_share.png">
     <meta name="twitter:creator" content="@TheCometCult">
 
     <!-- build:css styles/vendor.css -->
@@ -46,6 +49,7 @@
     <!-- endbuild -->
   </head>
   <body>
+  <div id="fb-root"></div>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -90,15 +94,25 @@
     <script src="scripts/services/foursquareApi.js"></script>
     <script src="scripts/services/geolocation.js"></script>
     <script src="scripts/services/utils.js"></script>
+    <script src="scripts/directives/social.dir.js"></script>
     <!-- endbuild -->
 
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1403543656559746";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1403543656559746',
+          status     : true,
+          xfbml      : true
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1403543656559746";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
   </body>
 </html>

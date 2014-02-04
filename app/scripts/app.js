@@ -4,7 +4,8 @@ angular.module('lunchButtonApp', [
   'ngRoute',
   'ngTouch',
   'ngAnimate',
-  'angular-carousel'
+  'angular-carousel',
+  'lunchButtonApp.social'
 ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
