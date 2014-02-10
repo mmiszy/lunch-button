@@ -340,6 +340,28 @@ header.top {
     @include perspective(1000);
 }
 
+.funny-text {
+    @include transform(scale(1));
+
+    &.ng-enter {
+        @include animation(splash .4s ease-out);
+    }
+
+    &.ng-leave {
+        opacity: 0;
+    }
+
+    &.ng-leave.ng-leave-active {
+
+    }
+}
+
+h1.funny-text {
+    color: $color-meal-bg;
+    font-size: 3.2em;
+    margin-top: 25vh;
+}
+
 
 
 @media screen and #{$rwdBigPhone} {
@@ -498,4 +520,19 @@ header.top {
     0%, 100% {background-position: 50% 35%; }
     10%, 30%, 50%, 70%, 90% {background-position: 49% 35%; }
     20%, 40%, 60%, 80% {background-position: 51% 35%; }
+}
+
+@-webkit-keyframes splash {
+    from { @include transform(scale(.1)); }
+    to { @include transform(scale(1)); }
+}
+
+@-moz-keyframes splash {
+    from { @include transform(scale(.1)); }
+    to { @include transform(scale(1)); }
+}
+
+@keyframes splash {
+    from { @include transform(scale(.1)); }
+    to { @include transform(scale(1)); }
 }
