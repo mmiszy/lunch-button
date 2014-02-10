@@ -2,7 +2,7 @@
     <section class="venue-container">
         <footer class="mealshake-logo"><img src="/images/meal-footer.png" alt=""></footer>
         <div class="venue">
-            <a class="venue-link" ng-href="{{venue.canonicalUrl}}" target="_blank" ng-if="!loading">
+            <a class="venue-link" ng-href="{{venue.canonicalUrl}}" ng-click="showVenue($event, venue);" target="_blank" ng-if="!loading">
                 <h1 ng-bind="venue.name" class="venue-title"></h1>
                 <p class="venue-distance"><span ng-bind="venue.location.formatted_distance"></span> from you!</p>
                 <p ng-if="venue.location.address || venue.location.city" class="venue-address">
@@ -39,8 +39,8 @@
                 </div>
 
                 <span>Visit this site on your phone and shake it like a mad man<br></span>
-                made with&nbsp;&nbsp;♡&nbsp;&nbsp;by <a href="http://thecometcult.com/" target="_blank">The Comet Cult</a><br>
-                Powered by <a target="_blank" href="https://foursquare.com">Foursquare</a>
+                made with&nbsp;&nbsp;♡&nbsp;&nbsp;by <a href="http://thecometcult.com/" target="_blank" ng-click="openInSystemBrowser($event, 'http://thecometcult.com')">The Comet Cult</a><br>
+                Powered by <a target="_blank" href="https://foursquare.com" ng-click="openInSystemBrowser($event, 'http://foursquare.com')">Foursquare</a>
             </footer>
         </li>
     </ul>

@@ -20,6 +20,7 @@ module.exports = function(config) {
       'app/bower_components/angular-touch/angular-touch.js',
       'app/bower_components/angular-animate/angular-animate.js',
       'app/bower_components/angular-rn-carousel/dist/angular-carousel.js',
+      'app/bower_components/swiftclick/js/dist/swiftclick.min.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',

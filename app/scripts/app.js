@@ -1,5 +1,7 @@
 'use strict';
 
+SwiftClick.attach(document.body);
+
 angular.module('lunchButtonApp', [
   'ngRoute',
   'ngTouch',

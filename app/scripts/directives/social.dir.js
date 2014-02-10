@@ -12,13 +12,78 @@ angular.module('lunchButtonApp.social', [])
     }
   };
 }])
-.directive('facebookShare', ['$window', '$log', 'metaService', function ($window, $log, metaService) {
+.service('cordovaShareService', ['$window', '$q', function ($window, $q) {
+  return {
+    shareToFacebook: function (shareData) {
+      return this.share('PostToFacebook', shareData);
+    },
+    shareToTwitter: function (shareData) {
+      return this.share('PostToTwitter', shareData);
+    },
+    serviceTypeToName: function(serviceType) {
+      return serviceType === 'PostToFacebook' ? 'Facebook' : 'Twitter';
+    },
+    share: function (activityType, shareData) {
+      var serviceName = this.serviceTypeToName(activityType),
+        fallBackFacebookShare = this.facebookSdkShare;
+      shareData = shareData || {};
+      shareData.activityType = activityType;
+
+      var image = shareData.image;
+      delete shareData.image;
+      $window.socialmessage.shareTo(shareData, function () {}, function () {
+        if (activityType === 'PostToFacebook') {
+          shareData.image = image;
+          fallBackFacebookShare(shareData);
+        } else {
+          $window.navigator.notification.alert(
+            'You need to configure your account in Settings > ' + serviceName + ' to be able to share Mealshaker',
+            function () {}, 'Unable to share');
+        }
+      });
+    },
+    showGenericErrorMessage: function(serviceName) {
+      $window.navigator.notification.alert(
+        'You need to configure your account in Settings > ' + serviceName + ' to be able to share Mealshaker',
+        function () {}, 'Unable to share');
+    },
+    facebookSdkShare: function(shareData) {
+      var deferred = $q.defer();
+      var plugin = new CC.CordovaFacebook();
+
+      plugin.init('1403543656559746', 'com.thecometcult.mealshaker', ['publish_actions']);
+      plugin.login(function (accessToken) {
+        deferred.resolve(accessToken);
+      }, function (error) {
+        deferred.reject(error);
+      });
+
+      deferred.promise
+        .then(function () {
+          var deferred = $q.defer();
+
+          // now ready to post
+          plugin.share('Mealshaker', shareData.url, shareData.image, 'Shake to find a nearby place to eat!', shareData.text, function (success) {
+            deferred.resolve(success);
+          }, function (error) {
+            deferred.reject(error);
+          });
+          return deferred.promise;
+        })
+        .catch(function () {
+          this.showGenericErrorMessage('Facebook');
+        }.bind(this));
+    }
+  };
+}])
+.directive('facebookShare', ['$window', '$log', 'metaService', 'cordovaShareService', 'Analytics', 'Utils', function ($window, $log, metaService, cordovaShareService, Analytics, Utils) {
   var currentPlace;
 
   function init (scope, elm) {
     elm.on('click', function (event) {
       event.stopPropagation();
       event.preventDefault();
+      Analytics.trackEvent('interaction', 'share', 'facebook');
 
       var image = metaService.getFacebookMetaTag('image'),
         description = metaService.getFacebookMetaTag('title'),
@@ -28,15 +93,23 @@ angular.module('lunchButtonApp.social', [])
         description = 'Going for a meal at ' + currentPlace + ' by using Mealshaker';
       }
 
-      $window.FB.ui({
-        method: 'feed',
-        link: url,
-        caption: description,
-        picture: image,
-        description: 'Shake to find a nearby place to eat!'
-      }, function (response) {
-        $log.log(response);
-      });
+      if (Utils.isCordova()) {
+        return cordovaShareService.shareToFacebook({
+          text: description,
+          image: image,
+          url: url
+        });
+      } else {
+        $window.FB.ui({
+          method: 'feed',
+          link: url,
+          picture: image,
+          caption: description,
+          description: 'Shake to find a nearby place to eat!'
+        }, function (response) {
+          $log.log(response);
+        });
+      }
     });
   }
 
@@ -46,7 +119,13 @@ angular.module('lunchButtonApp.social', [])
       description: '='
     },
     link: function linking (scope, elm, attrs) {
-      if ($window.fbAsyncInit) {
+      scope.$watch('description', function (newVal) {
+        currentPlace = newVal;
+      });
+
+      if (Utils.isCordova()) {
+        init(scope, elm, attrs);
+      } else if ($window.fbAsyncInit) {
         if ($window.fbAsyncInit.hasRun) {
           init(scope, elm, attrs);
         } else {
@@ -59,35 +138,59 @@ angular.module('lunchButtonApp.social', [])
       } else {
         $log.error('[directive:facebookShare] fbAsyncInit must be defined first');
       }
-
-      scope.$watch('description', function (newVal) {
-        currentPlace = newVal;
-      });
     }
   };
 }])
-.directive('twitterShare', ['$window', '$log', 'metaService', function ($window, $log, metaService) {
+.directive('twitterShare', ['$window', '$log', 'metaService', 'cordovaShareService', 'Analytics', 'Utils', function ($window, $log, metaService, cordovaShareService, Analytics, Utils) {
   var currentPlace;
 
   var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes';
+
+  function trimVenueName (venueName) {
+    if (venueName.length > 79) {
+      return venueName.substring(0, 76).trim() + '...';
+    }
+    return venueName;
+  }
+
+  function twitterDescription () {
+    var description = metaService.getTwitterMetaTag('description');
+
+    if (currentPlace) {
+      description = 'Going for a meal at ' + trimVenueName(currentPlace) + ' by using @Mealshaker';
+    }
+    return description;
+  }
+
+  function webTwitterShare () {
+    var winHeight = screen.height,
+      winWidth = screen.width,
+      width = 550,
+      height = 420;
+
+    var left = Math.round((winWidth / 2) - (width / 2));
+    var top = 0;
+    if (winHeight > height) {
+      top = Math.round((winHeight / 2) - (height / 2));
+    }
+
+    $window.open(getParams(), 'intent', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+  }
 
   function init (scope, elm) {
     elm.on('click', function (event) {
       event.stopPropagation();
       event.preventDefault();
+      Analytics.trackEvent('interaction', 'share', 'twitter');
 
-      var winHeight = screen.height;
-      var winWidth = screen.width;
-      var width = 550;
-      var height = 420;
-
-      var left = Math.round((winWidth / 2) - (width / 2));
-      var top = 0;
-      if (winHeight > height) {
-        top = Math.round((winHeight / 2) - (height / 2));
+      if (Utils.isCordova()) {
+        cordovaShareService.shareToTwitter({
+          text: twitterDescription(),
+          url: metaService.getTwitterMetaTag('url')
+        });
+      } else {
+        webTwitterShare();
       }
-
-      $window.open(getParams(), 'intent', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
     });
   }
 
@@ -96,12 +199,8 @@ angular.module('lunchButtonApp.social', [])
     var params = {
       url: metaService.getTwitterMetaTag('url'),
       via: 'Mealshaker',
-      text: metaService.getTwitterMetaTag('description')
+      text: twitterDescription()
     };
-
-    if (currentPlace) {
-      params.text = 'Going for a meal at ' + currentPlace + ' by using Mealshaker';
-    }
 
     var queryString = '';
 
