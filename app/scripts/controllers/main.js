@@ -8,7 +8,7 @@ angular.module('lunchButtonApp')
     var loadingTimeout;
     var lastTextIndex;
 
-    $scope.texts = ['Rolling up some meatballs', 'Shifting for the sausage', 'Wrapping up tacos', 'Firing up the grill', 'Pouring some hot choco', 'Putting a cherry on top', 'Laying Bacon strips!', 'Opening duck season', 'Ckicening out', 'Slicing up the pork'];
+    $scope.texts = ['Rolling up some meatballs', 'Sniffing for hot sausage', 'Wrapping up tacos', 'Firing up the grill', 'Pouring some hot choco', 'Putting a cherry on top', 'Laying Bacon strips!', 'Opening duck season', 'Chickening out', 'Slicing up the pork'];
 
     $scope.getRandomLunchVenue = function (category) {
       if ($scope.loading) {

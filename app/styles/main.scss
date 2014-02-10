@@ -128,7 +128,7 @@ header.top {
     left: 0;
     width: 100%;
     bottom: 25em;
-    bottom: 37vh;
+    bottom: 26vh;
     letter-spacing: .1em;
 }
 
@@ -356,10 +356,14 @@ header.top {
     }
 }
 
+.swipe-instruction.funny-text {
+    bottom: 30vh;
+}
+
 h1.funny-text {
     color: $color-meal-bg;
     font-size: 3.2em;
-    margin-top: 25vh;
+    margin-top: 20vh;
 }
 
 
