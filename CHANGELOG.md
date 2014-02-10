@@ -1,3 +1,8 @@
+1.0.4
+=====
+- LB-17 Fix sharer images to be included in build
+- LB-15 Added Google Analytics
+
 1.0.3
 =====
 - LB-11 Fixed mobile typos
