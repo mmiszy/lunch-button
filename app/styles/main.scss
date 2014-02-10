@@ -441,6 +441,11 @@ h1.funny-text {
     .shake-button {
         margin-top: 1.5em;
     }
+
+    h1.funny-text {
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+    }
 }
 
 @media screen and #{$rwdDesktop} {
