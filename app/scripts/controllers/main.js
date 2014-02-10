@@ -10,13 +10,19 @@ angular.module('lunchButtonApp')
 
     $scope.texts = ['Rolling up some meatballs', 'Sniffing for hot sausage', 'Wrapping up tacos', 'Firing up the grill', 'Pouring some hot choco', 'Putting a cherry on top', 'Laying Bacon strips!', 'Opening duck season', 'Chickening out', 'Slicing up the pork'];
 
-    $scope.getRandomLunchVenue = function (category) {
+    $scope.getRandomLunchVenue = function (category, event) {
       if ($scope.loading) {
         return;
       }
-      if (typeof category !== 'string') {
-        category = '';
+
+      if ($window.ga) {
+        if (event) {
+          $window.ga('send', 'event', 'GetVenue', 'Getting Venue', 'Shaked');
+        } else {
+          $window.ga('send', 'event', 'GetVenue', 'Getting Venue', 'Clicked');
+        }
       }
+
       category = category || $scope.currentCategory || 'meal';
 
       $scope.loading = true;
@@ -62,5 +68,9 @@ angular.module('lunchButtonApp')
       }
     });
 
-    $window.addEventListener('shake', $scope.getRandomLunchVenue, false);
+    $window.addEventListener('shake', function (event) {
+      $scope.$apply(function () {
+        $scope.getRandomLunchVenue('', event);
+      });
+    }, false);
   }]);
