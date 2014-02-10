@@ -1,3 +1,7 @@
+1.0.3
+=====
+- LB-11 Fixed mobile typos
+
 1.0.2
 =====
 - LB-11 Added animations
