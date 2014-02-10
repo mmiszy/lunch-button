@@ -12,6 +12,7 @@ $color-title: #f05a23;
 $color-subtitle: #404040;
 $color-address: #404040;
 $color-light: #f2f2f2;
+$color-light2: #d2d2d2;
 $color-footer: #cc981b;
 $font-family-normal: 'Raleway', sans-serif;
 
@@ -361,7 +362,7 @@ header.top {
 }
 
 h1.funny-text {
-    color: $color-meal-bg;
+    color: $color-light2;
     font-size: 3.2em;
     margin-top: 20vh;
 }
