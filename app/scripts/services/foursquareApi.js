@@ -19,6 +19,14 @@ angular.module('lunchButtonApp')
       });
     };
 
+    var getFormattedDistance = function (distance) {
+      if (distance >= 1000) {
+        return (distance/1000).toFixed(2) + ' km';
+      } else {
+        return distance + ' metres';
+      }
+    };
+
     this.getVenues = function (position, category) {
       var deferred = $q.defer();
       var categories = [FOURSQUARE.CATEGORIES[category]].join(',');
@@ -63,6 +71,8 @@ angular.module('lunchButtonApp')
           v: FOURSQUARE.API_VERSION
         }
       }).then(function (res) {
+        /*jshint camelcase: false */
+        res.data.response.venue.location.formatted_distance = getFormattedDistance(res.data.response.venue.location.distance);
         deferred.resolve(res.data.response.venue);
       }, function (err) {
         deferred.reject(err);

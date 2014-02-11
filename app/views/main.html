@@ -4,7 +4,7 @@
         <div class="venue">
             <a class="venue-link" ng-href="{{venue.canonicalUrl}}" target="_blank" ng-if="!loading">
                 <h1 ng-bind="venue.name" class="venue-title"></h1>
-                <p class="venue-distance"><span ng-bind="venue.location.distance"></span> meters from you!</p>
+                <p class="venue-distance"><span ng-bind="venue.location.formatted_distance"></span> from you!</p>
                 <p ng-if="venue.location.address || venue.location.city" class="venue-address">
                     <span ng-if="venue.location.address" ng-bind-template="{{venue.location.address}},"></span> <span ng-bind="venue.location.city"></span>
                 </p>
@@ -15,7 +15,7 @@
         <div class="button-container">
             <button class="shake-button" ng-click="getRandomLunchVenue(currentCategory)">
                 <span class="desktop-hide">Shake for meal</span>
-                <span class="mobile-hide">Click for meal</span>
+                <span class="mobile-hide">Find meal</span>
             </button>
             <div class="share-buttons">
                 <button facebook-share description="venue.name" class="facebook">f</button>

@@ -324,6 +324,7 @@ header.top {
     background: transparent;
     border: 0;
     cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 
     &:focus {
         outline: none;
@@ -332,7 +333,7 @@ header.top {
 
 .container.main {
     &.ng-hide-add {
-        @include transition(.6s ease-in all);
+        @include transition(.5s ease-in all);
         @include transform(translate3d(0, -100%, 0));
         display: table !important;
     }
@@ -344,7 +345,7 @@ header.top {
 
 .container.result {
     &.ng-hide-remove {
-        @include transition(.6s ease-out all);
+        @include transition(.5s ease-out all);
         @include transform(translate3d(0, -100%, 0));
         display: table !important;
     }
