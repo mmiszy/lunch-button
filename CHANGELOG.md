@@ -1,3 +1,7 @@
+1.0.6
+=====
+- LB-21 Added external link image
+
 1.0.5
 =====
 - LB-19 Fixed animation glitch
