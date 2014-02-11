@@ -349,11 +349,9 @@ header.top {
     }
 
     &.ng-leave {
-        opacity: 0;
     }
 
     &.ng-leave.ng-leave-active {
-
     }
 }
 
@@ -533,16 +531,19 @@ h1.funny-text {
 }
 
 @-webkit-keyframes splash {
-    from { @include transform(scale(.1)); }
-    to { @include transform(scale(1)); }
+    0% { opacity: 0; @include transform(scale(.1)); }
+    2% { opacity: 1; @include transform(scale(.1)); }
+    100% { @include transform(scale(1)); }
 }
 
 @-moz-keyframes splash {
-    from { @include transform(scale(.1)); }
-    to { @include transform(scale(1)); }
+    0% { opacity: 0; @include transform(scale(.1)); }
+    2% { opacity: 1; @include transform(scale(.1)); }
+    100% { @include transform(scale(1)); }
 }
 
 @keyframes splash {
-    from { @include transform(scale(.1)); }
-    to { @include transform(scale(1)); }
+    0% { opacity: 0; @include transform(scale(.1)); }
+    2% { opacity: 1; @include transform(scale(.1)); }
+    100% { @include transform(scale(1)); }
 }
