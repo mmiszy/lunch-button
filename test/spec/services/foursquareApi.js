@@ -103,16 +103,37 @@ describe('Service: Foursquareapi', function () {
       var venue = false;
 
       runs(function () {
-        $httpBackend.whenGET(/./).respond({response: {venue: {}}});
-
-        Foursquareapi.getOneVenue('myId', {coords: {}}).then(function (v) {
-          venue = v;
-        });
-
+        $httpBackend.whenGET(/./).respond({ response: { venue: { location: { distance: 1230 } } } });
+        Foursquareapi.getOneVenue('myId', {coords: {}}).then(function (v) { venue = v; });
         $httpBackend.flush();
       });
 
       waitsFor(function () { return venue; });
+    });
+
+    it('should format kilometres', function () {
+      var venues = [];
+
+      runs(function () {
+        $httpBackend.expectGET(/.venues\//).respond({ response: { venue: { location: { distance: 1001 } } } });
+        Foursquareapi.getOneVenue('myId', {coords: {}}).then(function (v) { venues.push(v); });
+
+        $httpBackend.expectGET(/.venues\//).respond({ response: { venue: { location: { distance: 999 } } } });
+        Foursquareapi.getOneVenue('myId', {coords: {}}).then(function (v) { venues.push(v); });
+
+        $httpBackend.expectGET(/.venues\//).respond({ response: { venue: { location: { distance: 1230 } } } });
+        Foursquareapi.getOneVenue('myId', {coords: {}}).then(function (v) { venues.push(v); });
+
+        $httpBackend.flush();
+      });
+
+      waitsFor(function () { return venues.length === 3; });
+
+      runs(function () {
+        expect(venues[0].location.formatted_distance).toEqual('1.00 km');
+        expect(venues[1].location.formatted_distance).toEqual('999 metres');
+        expect(venues[2].location.formatted_distance).toEqual('1.23 km');
+      });
     });
   });
 
