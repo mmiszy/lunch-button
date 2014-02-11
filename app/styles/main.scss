@@ -312,6 +312,24 @@ header.top {
     }
 }
 
+.main-button {
+    width: 40vw;
+    height: 40vw;
+    position: absolute;
+    left: 30%;
+    top: -webkit-calc(35% - 55px);
+    top: calc(35% - 55px);
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}
+
 .container.main {
     &.ng-hide-add {
         @include transition(.6s ease-in all);
@@ -380,6 +398,15 @@ h1.funny-text {
         .loading & {
             @include animation(shake-bg .5s infinite);
         }
+    }
+
+    .main-button {
+        width: 100px;
+        height: 100px;
+        left: -webkit-calc(50% - 50px);
+        left: calc(50% - 50px);
+        top: -webkit-calc(35% - 40px);
+        top: calc(35% - 40px);
     }
 
     .category {
