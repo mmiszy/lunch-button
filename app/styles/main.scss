@@ -245,6 +245,18 @@ header.top {
     line-height: 1.2;
     margin-bottom: .3em;
     margin-top: 0;
+    position: relative;
+
+    &::after {
+        content: " ";
+        position: absolute;
+        background: url('../images/external-link.png') no-repeat 50% 50%;
+        background-size: 12px;
+        width: 12px;
+        height: 12px;
+        margin-left: 10px;
+        top: 6px;
+    }
 }
 
 .venue-subtitle {
