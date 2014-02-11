@@ -1,3 +1,9 @@
+1.0.5
+=====
+- LB-19 Fixed animation glitch
+- LB-20 Fixed button click area
+- LB-22 Added kilometres formatting
+
 1.0.4
 =====
 - LB-17 Fix sharer images to be included in build
