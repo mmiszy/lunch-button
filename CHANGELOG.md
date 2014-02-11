@@ -1,3 +1,7 @@
+1.0.7
+=====
+- LB-21 Added missing resource
+
 1.0.6
 =====
 - LB-21 Added external link image
