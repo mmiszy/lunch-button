@@ -1,3 +1,7 @@
+1.0.8
+=====
+- LB-24 Added The Comet Cult link
+
 1.0.7
 =====
 - LB-21 Added missing resource
