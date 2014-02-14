@@ -10,3 +10,7 @@ ConfR.sublime-workspace
 .tern-port
 app/bower_components
 app/scripts/constants.js
+
+www
+!www/config.xml
+!www/res

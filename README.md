@@ -21,3 +21,19 @@ grunt server
 grunt selenium
 grunt e2e
 ```
+
+Bulding for mobile
+------------------
+Requirements
+- SDK for your desired platform
+- npm install -g phonegap cordova
+
+iOS specific:
+- npm install -g ios-sim ios-deploy
+
+```bash
+grunt phonegap:build
+cp cordova-config.xml www/config.xml
+grunt cordova build ios
+cordova emulate ios
+```
