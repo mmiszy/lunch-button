@@ -7,6 +7,8 @@ angular.module('lunchButtonApp')
 
       navigator.geolocation.getCurrentPosition(function (pos) {
         deferred.resolve(pos);
+      }, function () {
+        deferred.reject('Turn on GPS');
       });
 
       return deferred.promise;

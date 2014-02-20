@@ -433,6 +433,11 @@ header.top {
     }
 }
 
+.funny-text.error {
+    @include animation(splash-infinite 2.4s ease-out infinite);
+    color: $color-footer;
+}
+
 .swipe-instruction.funny-text {
     bottom: 30vh;
 }
@@ -632,5 +637,26 @@ h1.funny-text {
 @keyframes splash {
     0% { opacity: 0; @include transform(scale(.1)); }
     2% { opacity: 1; @include transform(scale(.1)); }
+    100% { @include transform(scale(1)); }
+}
+
+@-webkit-keyframes splash-infinite {
+    0% { opacity: 0; @include transform(scale(.1)); }
+    0.2% { opacity: 1; @include transform(scale(.1)); }
+    10% { @include transform(scale(1)); }
+    100% { @include transform(scale(1)); }
+}
+
+@-moz-keyframes splash-infinite {
+    0% { opacity: 0; @include transform(scale(.1)); }
+    0.2% { opacity: 1; @include transform(scale(.1)); }
+    10% { @include transform(scale(1)); }
+    100% { @include transform(scale(1)); }
+}
+
+@keyframes splash-infinite {
+    0% { opacity: 0; @include transform(scale(.1)); }
+    0.2% { opacity: 1; @include transform(scale(.1)); }
+    10% { @include transform(scale(1)); }
     100% { @include transform(scale(1)); }
 }

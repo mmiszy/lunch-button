@@ -9,6 +9,7 @@ angular.module('lunchButtonApp')
     this.supportsProtocolUrl = function (protocolUrl) {
       var deferred = $q.defer();
       if (typeof(CanOpen) !== 'undefined') {
+        /* jshint newcap:false */
         CanOpen(protocolUrl, function(isInstalled) {
           if(isInstalled) {
             return deferred.resolve(protocolUrl);
