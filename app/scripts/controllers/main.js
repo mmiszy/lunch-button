@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lunchButtonApp')
-  .controller('MainCtrl', ['$scope', '$window', '$timeout', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics', function ($scope, $window, $timeout, Foursquareapi, Geolocation, Utils, Analytics) {
+  .controller('MainCtrl', ['$scope', '$window', '$timeout', '$q', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics', function ($scope, $window, $timeout, $q, Foursquareapi, Geolocation, Utils, Analytics) {
     $scope.categories = ['meal']; // ['meal', 'beer'];
     $scope.loadingTextIndex = '';
 
@@ -54,9 +54,24 @@ angular.module('lunchButtonApp')
       $scope.done = false;
       var position;
       Geolocation.getCurrentPosition()
+        .catch(function (errMsg) {
+          if (Utils.isCordova()) {
+            errMsg = 'You have denied Mealshaker permission to use Location Services. Go to Settings > Privacy > Location Services and enable Location Services for the app and try again.';
+          }
+          return $q.reject({
+            title: 'Could not get your location',
+            message: errMsg
+          });
+        })
         .then(function (pos) {
           position = pos;
-          return Foursquareapi.getVenues(position, category);
+
+          return Foursquareapi.getVenues(position, category).catch(function () {
+            return $q.reject({
+              title: 'Network Issue',
+              message: 'Could not retrieve places. Make sure you are connected to the internet and try again.'
+            });
+          });
         }).then(function (venues) {
           var venue = Utils.getRandomArrayItem(venues);
           return Foursquareapi.getOneVenue(venue.id, position);
@@ -65,12 +80,17 @@ angular.module('lunchButtonApp')
 
           $scope.venue = venue;
           $scope.tip = Foursquareapi.getRandomTipForVenue(venue);
-          $scope.loading = false;
-          $scope.done = true;
           $scope.currentCategory = category;
-        }).catch(function (err) {
+          $scope.done = true;
+        }).catch(function (errObj) {
+          if (Utils.isCordova()) {
+            $window.navigator.notification.alert(errObj.message,
+              function () {}, errObj.title);
+          } else {
+            $scope.errorMessage = errObj.message;
+          }
+        }).finally(function () {
           $scope.loading = false;
-          $scope.errorMessage = err;
         });
     };
 
