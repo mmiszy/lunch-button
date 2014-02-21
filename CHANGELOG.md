@@ -1,3 +1,10 @@
+1.0.9 (iOS 1.0.1)
+=====
+- LB-27 Fixed error handling on geo-location and no-network
+- LB-28 Added Smart App Banner to iOS AppStore
+- LB-29 Added iOS app info to Twitter Meta-data
+- LB-30 Fixed crash on iOS when launched from Facebook
+
 1.0.8
 =====
 - LB-24 Added The Comet Cult link
