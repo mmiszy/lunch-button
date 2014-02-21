@@ -9,8 +9,9 @@
                     <span ng-if="venue.location.address" ng-bind-template="{{venue.location.address}},"></span> <span ng-bind="venue.location.city"></span>
                 </p>
             </a>
-            <blockquote ng-bind="tip.text" class="venue-tip" ng-if="!loading"></blockquote>
+            <blockquote ng-bind="tip.text" class="venue-tip" ng-if="!loading && !errorMessage"></blockquote>
             <h1 class="funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></h1>
+            <h1 class="funny-text error" ng-if="!loading && errorMessage" ng-bind="errorMessage"></h1>
         </div>
         <div class="button-container">
             <button class="shake-button" ng-click="getRandomLunchVenue(currentCategory)">
@@ -30,8 +31,9 @@
             <header class="top">Mealshaker</header>
             <button class="main-button" ng-click="getRandomLunchVenue()"></button>
             <p class="swipe-instruction desktop-hide" ng-if="!loading">Shake your phone to <br> find a place to eat.</p>
-            <p class="swipe-instruction mobile-hide" ng-if="!loading">Click the icon to find a <br> place to eat.</p>
+            <p class="swipe-instruction mobile-hide" ng-if="!loading && !errorMessage">Click the icon to find a <br> place to eat.</p>
             <p class="swipe-instruction funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></p>
+            <p class="swipe-instruction funny-text error" ng-if="!loading && errorMessage" ng-bind="errorMessage"></p>
             <footer class="tcc">
                 <div class="share-buttons">
                     <button facebook-share class="facebook">f</button>

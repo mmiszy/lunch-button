@@ -20,6 +20,8 @@
   "smarttabs": true,
   "globals": {
     "angular": false,
-    "SwiftClick": true
+    "SwiftClick": true,
+    "CanOpen": false,
+    "CC": false
   }
 }

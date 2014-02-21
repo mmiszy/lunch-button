@@ -8,16 +8,21 @@ describe('Controller: MainCtrl', function () {
   var MainCtrl,
     scope,
     Foursquareapi = {},
-    Geolocation = {};
+    Geolocation = {},
+    $q,
+    $timeout;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, _$q_, _$timeout_) {
     scope = $rootScope.$new();
     MainCtrl = $controller('MainCtrl', {
       $scope: scope,
       Foursquareapi: Foursquareapi,
       Geolocation: Geolocation
     });
+
+    $q = _$q_;
+    $timeout = _$timeout_;
   }));
 
   it('should have changing waiting texts while loading', inject(function ($timeout) {
@@ -38,4 +43,20 @@ describe('Controller: MainCtrl', function () {
     scope.$digest();
     expect(scope.loadingTextIndex).toEqual('');
   }));
+
+  describe('Geolocation fails', function () {
+    Geolocation.getCurrentPosition = jasmine.createSpy().andCallFake(function () {
+      var deferred = $q.defer();
+      $timeout(function () {
+        deferred.reject('Turn on GPS');
+      });
+      return deferred.promise;
+    });
+
+    it('should show error', function () {
+      scope.getRandomLunchVenue();
+      $timeout.flush();
+      expect(scope.errorMessage).toBeTruthy();
+    });
+  });
 });

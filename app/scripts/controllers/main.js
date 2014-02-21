@@ -68,6 +68,9 @@ angular.module('lunchButtonApp')
           $scope.loading = false;
           $scope.done = true;
           $scope.currentCategory = category;
+        }).catch(function (err) {
+          $scope.loading = false;
+          $scope.errorMessage = err;
         });
     };
 
