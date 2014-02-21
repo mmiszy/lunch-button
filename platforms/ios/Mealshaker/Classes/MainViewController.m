@@ -27,6 +27,7 @@
 
 #import "MainViewController.h"
 
+
 @implementation MainViewController
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
@@ -44,6 +45,7 @@
 - (id)init
 {
     self = [super init];
+    
     if (self) {
         // Uncomment to override the CDVCommandDelegateImpl used
         // _commandDelegate = [[MainCommandDelegate alloc] initWithViewController:self];

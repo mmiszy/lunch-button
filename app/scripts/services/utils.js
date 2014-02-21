@@ -37,6 +37,12 @@ angular.module('lunchButtonApp')
       return arr[this.getRandomInt(0, len-1)];
     };
 
+    this.popRandomArrayItem = function (arr) {
+      var len = arr.length;
+      var index = this.getRandomInt(0, len-1);
+      return arr.splice(index, 1)[0];
+    };
+
     this.debounce = function debounce(fn, delay) {
       var timer = null;
       return function () {

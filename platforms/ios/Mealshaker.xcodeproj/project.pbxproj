@@ -29,12 +29,12 @@
 		30C66DB518A91A13002FF491 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 30C66DAF18A91A13002FF491 /* README.md */; };
 		30C66DB618A91A13002FF491 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 30C66DB018A91A13002FF491 /* release_notes.md */; };
 		30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30FC414816E50CA1004E6F35 /* icon-72@2x.png */; };
+		4871BEA019C2E207001F7B17 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4871BE9F19C2E207001F7B17 /* CDVLocation.m */; };
 		4897650219825B57008FE38F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4897650119825B57008FE38F /* FacebookSDK.framework */; };
 		4897650319825B61008FE38F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7EDB67308F34206817A9431 /* CoreData.framework */; };
 		4897650519825B82008FE38F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4897650419825B82008FE38F /* Security.framework */; };
 		4897650619825BA2008FE38F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB02131D1D294A3C85D81D51 /* AdSupport.framework */; };
 		4897650719825BCC008FE38F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C66DB918A91B48002FF491 /* libz.dylib */; };
-		4897650919825DBB008FE38F /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0585B84DA6F2494B897F066D /* CDVLocation.m */; };
 		4897650A19825DBB008FE38F /* CordovaFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B635812C98744B73AE8158E4 /* CordovaFacebook.m */; };
 		4897650B19825DBB008FE38F /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C66291432C6B4A55BE7943AF /* CDVSplashScreen.m */; };
 		4897650C19825DBB008FE38F /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D74277B3F914A48A40019FA /* CDVNotification.m */; };
@@ -83,7 +83,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0585B84DA6F2494B897F066D /* CDVLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLocation.m; path = org.apache.cordova.geolocation/CDVLocation.m; sourceTree = "<group>"; };
 		1611F54483614433A628B96E /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CDVNotification.bundle; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -132,9 +131,10 @@
 		3DB461EA06924731AE291D35 /* SocialMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocialMessage.m; path = socialmessage/SocialMessage.m; sourceTree = "<group>"; };
 		4313C4F081B74C8DBC45A4AC /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = com.danielcwilson.plugins.googleanalytics/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		462D178E4EFD479A86C52AE1 /* CDVLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVLogger.h; path = org.apache.cordova.console/CDVLogger.h; sourceTree = "<group>"; };
+		4871BE9E19C2E207001F7B17 /* CDVLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVLocation.h; path = org.apache.cordova.geolocation/CDVLocation.h; sourceTree = "<group>"; };
+		4871BE9F19C2E207001F7B17 /* CDVLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLocation.m; path = org.apache.cordova.geolocation/CDVLocation.m; sourceTree = "<group>"; };
 		4897650119825B57008FE38F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		4897650419825B82008FE38F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		48E6E4134CBC4F2088055CD4 /* CDVLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVLocation.h; path = org.apache.cordova.geolocation/CDVLocation.h; sourceTree = "<group>"; };
 		4FBCA67207474BDA90535CF7 /* CDVLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLogger.m; path = org.apache.cordova.console/CDVLogger.m; sourceTree = "<group>"; };
 		55FABD43A32F47A68565E8EE /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = com.danielcwilson.plugins.googleanalytics/GAI.h; sourceTree = "<group>"; };
 		5AEE5B34173C68D80009041E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -188,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
 				4897650F19825DE0008FE38F /* AudioToolbox.framework in Frameworks */,
 				4897650719825BCC008FE38F /* libz.dylib in Frameworks */,
 				4897650619825BA2008FE38F /* AdSupport.framework in Frameworks */,
@@ -200,7 +201,6 @@
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
-				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
 				9E1C13A9CCA04E08BCF406CA /* libGoogleAnalyticsServices.a in Frameworks */,
 				9AB90B9F0006445092EB4370 /* libsqlite3.0.dylib in Frameworks */,
 				73E61892E0554F0F9F5A8D7B /* Social.framework in Frameworks */,
@@ -328,6 +328,8 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				4871BE9E19C2E207001F7B17 /* CDVLocation.h */,
+				4871BE9F19C2E207001F7B17 /* CDVLocation.m */,
 				302B62F118AC253C0049B6FD /* GAI.h */,
 				302B62F218AC253C0049B6FD /* GAIDictionaryBuilder.h */,
 				302B62F318AC253C0049B6FD /* GAIFields.h */,
@@ -335,8 +337,6 @@
 				302B62F518AC253C0049B6FD /* GAITrackedViewController.h */,
 				302B62F618AC253C0049B6FD /* GAITracker.h */,
 				302B62F718AC25420049B6FD /* libGoogleAnalyticsServices.a */,
-				0585B84DA6F2494B897F066D /* CDVLocation.m */,
-				48E6E4134CBC4F2088055CD4 /* CDVLocation.h */,
 				B635812C98744B73AE8158E4 /* CordovaFacebook.m */,
 				8DE9A0A4243D41F5BA9E5464 /* CordovaFacebook.h */,
 				C66291432C6B4A55BE7943AF /* CDVSplashScreen.m */,
@@ -568,8 +568,8 @@
 				489765251982811D008FE38F /* SocialMessage.m in Sources */,
 				4897651119825E1F008FE38F /* CanOpen.m in Sources */,
 				4897651019825E18008FE38F /* CDVLogger.m in Sources */,
-				4897650919825DBB008FE38F /* CDVLocation.m in Sources */,
 				4897650A19825DBB008FE38F /* CordovaFacebook.m in Sources */,
+				4871BEA019C2E207001F7B17 /* CDVLocation.m in Sources */,
 				4897650B19825DBB008FE38F /* CDVSplashScreen.m in Sources */,
 				4897650C19825DBB008FE38F /* CDVNotification.m in Sources */,
 				4897650D19825DBB008FE38F /* CDVInAppBrowser.m in Sources */,
@@ -653,7 +653,7 @@
 					/Users/Miszy/Documents/TestFlightSDK3.0.2,
 					"\"$(SRCROOT)/Mealshaker/Plugins/com.danielcwilson.plugins.googleanalytics\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -700,7 +700,7 @@
 					/Users/Miszy/Documents/TestFlightSDK3.0.2,
 					"\"$(SRCROOT)/Mealshaker/Plugins/com.danielcwilson.plugins.googleanalytics\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,

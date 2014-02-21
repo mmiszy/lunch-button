@@ -31,9 +31,24 @@ Requirements
 iOS specific:
 - npm install -g ios-sim ios-deploy
 
-```bash
+```
+npm run build
+```
+
+which is the same as:
+
+```
 grunt phonegap:build
 cp cordova-config.xml www/config.xml
-grunt cordova build ios
-cordova emulate ios
+cordova build ios
 ```
+
+Running on iOS emulator
+-----------------------
+
+You can run the app on your iPhone or on a Simulator. You can either do it from your Terminal or through Xcode:
+
+* *Xcode*: `open platforms/ios/Mealshaker.xcodeproj/`
+* *Terminal*: `cordova emulate ios`
+
+In case you have some kind of cache-related problems in you Xcode try cleaning the project (`⌘ + ⇧ + K`).

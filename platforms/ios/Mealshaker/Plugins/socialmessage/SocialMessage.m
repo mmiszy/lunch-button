@@ -190,7 +190,6 @@
                 [rootViewController dismissViewControllerAnimated:NO completion:nil];
             });
         };
-        
         [rootViewController presentModalViewController:viewController animated:YES];
     }];
 }

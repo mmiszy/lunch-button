@@ -4,6 +4,7 @@ describe('Social directive', function () {
   var $scope,
     $compile,
     $httpBackend,
+    $timeout,
     _$window_,
     _Utils_,
     socialmessage,
@@ -17,12 +18,13 @@ describe('Social directive', function () {
 
   beforeEach(module('lunchButtonApp'));
 
-  beforeEach(inject(function ($window, _$rootScope_, _$compile_, _$httpBackend_, metaService) {
+  beforeEach(inject(function ($window, _$rootScope_, _$compile_, _$httpBackend_, _$timeout_, metaService) {
     _$window_ = $window;
     $scope = _$rootScope_;
     $scope.description = '';
     $compile = _$compile_;
     $httpBackend = _$httpBackend_;
+    $timeout = _$timeout_;
 
     var metaData = {
       'image': 'http://mealshaker.com/staticimages/facebook-sharer-image.png',
@@ -60,6 +62,7 @@ describe('Social directive', function () {
       spyOn(Analytics, 'trackEvent'); // .andCallThrough();
 
       var button = compile('<button facebook-share>f</button>', $scope);
+      $timeout.flush();
       button.triggerHandler('click');
 
       expect(Analytics.trackEvent).toHaveBeenCalledWith('interaction', 'share', 'facebook');
@@ -73,6 +76,7 @@ describe('Social directive', function () {
 
     it('should share with FB JS SDK', function () {
       var button = compile('<button facebook-share>f</button>', $scope);
+      $timeout.flush();
       button.triggerHandler('click');
 
       expect(browserFb.ui).toHaveBeenCalled();
@@ -92,22 +96,23 @@ describe('Social directive', function () {
         name: 'A very Long Venue Place That Should Not Be Trimmed At A Given Point But Needs To Be Long by using Mealshaker'
       };
       var button = compile('<button facebook-share description="venue.name"></button>', $scope);
+      $timeout.flush();
       button.triggerHandler('click');
 
       expect(browserFb.ui).toHaveBeenCalled();
-      expect(browserFb.ui.argsForCall[0][0].caption).toEqual('Going for a meal at A very Long Venue Place That Should Not Be Trimmed At A Given Point But Needs To Be Long by using Mealshaker by using Mealshaker');
+      expect(browserFb.ui.argsForCall[0][0].name).toEqual('I just found A very Long Venue Place That Should Not Be Trimmed At A Given Point But Needs To Be Long by using Mealshaker using Mealshaker!');
     });
 
     it('should trim venue name for twitter', function () {
       $scope.venue = {
-        name: 'Going for a meal at A very Long Venue Place That Should Not Be Trimmed At A Given Point But Needs To Be Long by using Mealshaker'
+        name: 'A very Long Venue Place That Should Not Be Trimmed At A Given Point But Needs To Be Long by using Mealshaker'
       };
       $scope.$digest();
       var button = compile('<button twitter-share description="venue.name"></button>', $scope);
       button.triggerHandler('click');
 
       expect(_$window_.open).toHaveBeenCalled();
-      expect(_$window_.open.argsForCall[0][0]).toBe('https://twitter.com/intent/tweet?url=http%3A%2F%2Fmealshaker.com&via=Mealshaker&text=Going%20for%20a%20meal%20at%20Going%20for%20a%20meal%20at%20A%20very%20Long%20Venue%20Place%20That%20Should%20Not%20Be%20Trimmed%20At%20A...%20by%20using%20%40Mealshaker');
+      expect(_$window_.open.argsForCall[0][0]).toBe('https://twitter.com/intent/tweet?url=http%3A%2F%2Fserver%2F&via=Mealshaker&text=I%20just%20found%20A%20very%20Long%20Venue%20Place%20That%20Should%20Not%20Be%20Trimmed%20At%20A%20Given%20Point%20But%20Need...%20using%20Mealshaker!');
 
       // check non-spacing correctly
     });
@@ -140,10 +145,10 @@ describe('Social directive', function () {
 
       expect(_Utils_.isCordova).toHaveBeenCalled();
       expect(_$window_.socialmessage.shareTo).toHaveBeenCalledWith({
-        text: 'Mealshaker - shake it to find a nearby place to eat!',
-        url: 'http://mealshaker.com',
-        activityType: 'PostToFacebook'
-      }, _injectedSuccessCb, _injectedErrorCb);
+          text: 'Shake to find a nearby place to eat!',
+          url: 'http://mealshaker.com/',
+          activityType: 'PostToFacebook'
+        }, _injectedSuccessCb, _injectedErrorCb);
     }));
 
     it('should fallback to FB iOS SDK', inject(function (cordovaShareService) {
@@ -158,10 +163,10 @@ describe('Social directive', function () {
       expect(_Utils_.isCordova).toHaveBeenCalled();
       expect(_$window_.socialmessage.shareTo).toHaveBeenCalled();
       expect(cordovaShareService.facebookSdkShare).toHaveBeenCalledWith({
-        text: 'Mealshaker - shake it to find a nearby place to eat!',
-        url: 'http://mealshaker.com',
-        image: 'http://mealshaker.com/staticimages/facebook-sharer-image.png',
-        activityType: 'PostToFacebook'
+          text: 'Shake to find a nearby place to eat!',
+          url: 'http://mealshaker.com/',
+          activityType: 'PostToFacebook',
+          image: 'http://mealshaker.com/staticimages/facebook-sharer-image.png'
       });
       cordovaShareService.facebookSdkShare.reset();
       _Utils_.isCordova.reset();
@@ -177,8 +182,8 @@ describe('Social directive', function () {
       expect(_Utils_.isCordova).toHaveBeenCalled();
       expect(_$window_.socialmessage.shareTo).toHaveBeenCalled();
       expect(cordovaShareService.facebookSdkShare).toHaveBeenCalledWith({
-        text: 'Going for a meal at MyBest Place by using Mealshaker',
-        url: 'http://mealshaker.com',
+        text: 'I just found MyBest Place using Mealshaker!',
+        url: 'http://mealshaker.com/',
         image: 'http://mealshaker.com/staticimages/facebook-sharer-image.png',
         activityType: 'PostToFacebook'
       });
@@ -199,7 +204,7 @@ describe('Social directive', function () {
       expect(_Utils_.isCordova).toHaveBeenCalled();
       expect(_$window_.socialmessage.shareTo).toHaveBeenCalledWith({
         text: 'Shake to find a nearby place to eat!',
-        url: 'http://mealshaker.com',
+        url: 'http://mealshaker.com/',
         activityType: 'PostToTwitter'
       }, _injectedSuccessCb, _injectedErrorCb);
       _Utils_.isCordova.reset();
@@ -214,8 +219,8 @@ describe('Social directive', function () {
 
       expect(_Utils_.isCordova).toHaveBeenCalled();
       expect(_$window_.socialmessage.shareTo).toHaveBeenCalledWith({
-        text: 'Going for a meal at MyBest Place by using @Mealshaker',
-        url: 'http://mealshaker.com',
+        text: 'I just found MyBest Place using Mealshaker!',
+        url: 'http://mealshaker.com/',
         activityType: 'PostToTwitter'
       }, _injectedSuccessCb, _injectedErrorCb);
     }));

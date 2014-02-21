@@ -18,7 +18,8 @@ angular.module('lunchButtonApp', [
         animation: {
           leave: 'flip-left',
           enter: 'flip-right'
-        }
+        },
+        reloadOnSearch: false
       })
       .when('/info', {
         templateUrl: 'views/info.html',

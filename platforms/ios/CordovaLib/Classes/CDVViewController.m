@@ -84,6 +84,7 @@
 
         // load config.xml settings
         [self loadSettings];
+        
     }
 }
 

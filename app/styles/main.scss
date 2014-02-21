@@ -13,7 +13,7 @@ $font-family-normal: 'Helvetica', 'Arial', sans-serif;
 $color-fb: #3e5d95;
 $color-twitter: #2aafea;
 
-$rwdDesktop: "(min-width: 800px)";
+$rwdDesktop: "(min-width: 769px)";
 
 @mixin animation($anim) {
     -webkit-animation: $anim;
@@ -60,6 +60,8 @@ body {
     font-family: $font-family-normal;
     font-size: 12px;
     color: $color-main;
+    overflow: hidden;
+    position: fixed;
 }
 
 html, body, main, .swipe-container {
@@ -362,6 +364,7 @@ header {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         @include box-sizing(border-box);
+        max-height: 60px;
     }
 
     .venue-tip-container {
@@ -508,11 +511,6 @@ header {
     &:focus {
         outline: none;
     }
-}
-
-
-@media screen and #{$rwdDesktop} {
-
 }
 
 .desktop-hide {
@@ -874,7 +872,12 @@ main.ready {
 }
 
 
-@media screen and (min-width: 769px) {
+@media screen and #{$rwdDesktop} {
+    body {
+        overflow: auto;
+        position: static;
+    }
+
     p, a, blockquote, h1, .distance, strong {
         @include user-selectable();
     }
@@ -915,7 +918,7 @@ main.ready {
         p {
             font: lighter 24px/36px 'Helvetica Neue Light', 'Helvetic Neue', 'Helvetica', sans-serif;
             max-width: 610px;
-            margin: 40px auto 30px;
+            margin: 30px auto;
         }
 
         .download-app {
