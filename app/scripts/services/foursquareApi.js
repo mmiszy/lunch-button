@@ -28,13 +28,13 @@ angular.module('lunchButtonApp')
     };
 
     this.getVenues = function (position, category) {
-      var deferred = $q.defer();
       var categories = [FOURSQUARE.CATEGORIES[category]].join(',');
       var ll = [position.coords.latitude, position.coords.longitude].join(',');
 
-      $http({
+      return $http({
         method: 'GET',
         url: FOURSQUARE.API_ADDRESS + 'venues/search',
+        timeout: 10000,
         params: {
           ll: ll,
           categoryId: categories,
@@ -48,19 +48,14 @@ angular.module('lunchButtonApp')
           v: FOURSQUARE.API_VERSION
         }
       }).then(function (res) {
-        deferred.resolve(filterBadVenues(res.data.response.venues));
-      }, function (err) {
-        deferred.reject(err);
+        return filterBadVenues(res.data.response.venues);
       });
-
-      return deferred.promise;
     };
 
     this.getOneVenue = function (venueId, position) {
-      var deferred = $q.defer();
       var ll = [position.coords.latitude, position.coords.longitude].join(',');
 
-      $http({
+      return $http({
         method: 'GET',
         url: FOURSQUARE.API_ADDRESS + 'venues/' + venueId,
         params: {
@@ -73,12 +68,8 @@ angular.module('lunchButtonApp')
       }).then(function (res) {
         /*jshint camelcase: false */
         res.data.response.venue.location.formatted_distance = getFormattedDistance(res.data.response.venue.location.distance);
-        deferred.resolve(res.data.response.venue);
-      }, function (err) {
-        deferred.reject(err);
+        return res.data.response.venue;
       });
-
-      return deferred.promise;
     };
 
     this.getRandomTipForVenue = function (venue) {

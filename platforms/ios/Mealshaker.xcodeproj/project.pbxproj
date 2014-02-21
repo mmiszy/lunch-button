@@ -14,10 +14,11 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		2D6F18DC2B954392AE6D8688 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9350C4018B4CAA9382CA63 /* CDVInAppBrowser.m */; };
 		301BF552109A68D80062928A /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
-		302B62F818AC25420049B6FD /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 302B62F718AC25420049B6FD /* libGoogleAnalyticsServices.a */; };
 		302D95F114D2391D003F00A1 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
 		302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
 		3047336318A51AB8000FC845 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3047336218A51AB8000FC845 /* FacebookSDK.framework */; };
+		30541E9E18B6AA81005CABF4 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C66DAE18A91A13002FF491 /* libTestFlight.a */; };
+		30541E9F18B737C1005CABF4 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 302B62F718AC25420049B6FD /* libGoogleAnalyticsServices.a */; };
 		305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */; };
 		3087C15D18A6B35400B986AA /* CordovaFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B635812C98744B73AE8158E4 /* CordovaFacebook.m */; };
 		3088BBBD154F3926009F9C59 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBB7154F3926009F9C59 /* Default-Landscape@2x~ipad.png */; };
@@ -30,7 +31,6 @@
 		308D05381370CCF300D202BF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D052F1370CCF300D202BF /* icon.png */; };
 		308D05391370CCF300D202BF /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D05301370CCF300D202BF /* icon@2x.png */; };
 		30A0434814DC770100060A13 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434314DC770100060A13 /* Localizable.strings */; };
-		30C66DB418A91A13002FF491 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C66DAE18A91A13002FF491 /* libTestFlight.a */; };
 		30C66DB518A91A13002FF491 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 30C66DAF18A91A13002FF491 /* README.md */; };
 		30C66DB618A91A13002FF491 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 30C66DB018A91A13002FF491 /* release_notes.md */; };
 		30C66DBA18A91B48002FF491 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C66DB918A91B48002FF491 /* libz.dylib */; };
@@ -172,9 +172,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				30C66DBA18A91B48002FF491 /* libz.dylib in Frameworks */,
-				30C66DB418A91A13002FF491 /* libTestFlight.a in Frameworks */,
+				30541E9E18B6AA81005CABF4 /* libTestFlight.a in Frameworks */,
 				3047336318A51AB8000FC845 /* FacebookSDK.framework in Frameworks */,
-				302B62F818AC25420049B6FD /* libGoogleAnalyticsServices.a in Frameworks */,
+				30541E9F18B737C1005CABF4 /* libGoogleAnalyticsServices.a in Frameworks */,
 				5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */,
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -614,10 +614,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/even/Documents/lunch-button-new/platforms/ios",
-					"/Users/even/Documents/lunch-button-new/platforms/ios/TestFlightSDK2",
-					"\\\"$(SRCROOT)/Mealshaker/Plugins/com.phonegap.plugins.flurry\\\"",
-					"/Users/even/Documents/lunch-button-new/platforms/ios/Mealshaker/Plugins",
+					"/Users/even/Documents/lunch-button/platforms/ios/TestFlightSDK2",
+					"/Users/even/Documents/lunch-button/platforms/ios/Mealshaker/Plugins",
 				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -659,10 +657,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/even/Documents/lunch-button-new/platforms/ios",
-					"/Users/even/Documents/lunch-button-new/platforms/ios/TestFlightSDK2",
-					"\\\"$(SRCROOT)/Mealshaker/Plugins/com.phonegap.plugins.flurry\\\"",
-					"/Users/even/Documents/lunch-button-new/platforms/ios/Mealshaker/Plugins",
+					"/Users/even/Documents/lunch-button/platforms/ios/TestFlightSDK2",
+					"/Users/even/Documents/lunch-button/platforms/ios/Mealshaker/Plugins",
 				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",

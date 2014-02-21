@@ -1,6 +1,19 @@
 @import "normalize";
 @import "compass";
 
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'), url(../fonts/-_Ctzj9b56b8RgXW8FArib3hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Raleway ExtraBold'), local('Raleway-ExtraBold'), url(../fonts/1ImRNPx4870-D9a1EBUdPL3hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
+}
+
 $color-meal-bg: #ffbe22;
 
 $color-main: white;
