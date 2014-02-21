@@ -67,6 +67,7 @@ function, which is typically less customizable.
 - Amazon Fire OS
 - Android
 - BlackBerry 10
+- Firefox OS
 - iOS
 - Tizen
 - Windows Phone 7 and 8
@@ -80,6 +81,9 @@ function, which is typically less customizable.
 
 - Both `alert` and `confirm` are non-blocking calls, results of which are only available asynchronously.
 
+### Firefox OS Quirks:
+
+Both native-blocking `window.alert()` and non-blocking `navigator.notification.alert()` are available.
 
 ## navigator.notification.confirm
 
@@ -123,6 +127,7 @@ indexing, so the value is `1`, `2`, `3`, etc.
 - Amazon Fire OS
 - Android
 - BlackBerry 10
+- Firefox OS
 - iOS
 - Tizen
 - Windows Phone 7 and 8
@@ -136,6 +141,9 @@ indexing, so the value is `1`, `2`, `3`, etc.
 
 - Calls to `alert` and `confirm` are non-blocking, so the result is only available asynchronously.
 
+### Firefox OS Quirks:
+
+Both native-blocking `window.confirm()` and non-blocking `navigator.notification.confirm()` are available.
 
 ## navigator.notification.prompt
 
@@ -145,7 +153,7 @@ Displays a native dialog box that is more customizable than the browser's `promp
 
 - __message__: Dialog message. _(String)_
 
-- __promptCallback__: Callback to invoke when a button is pressed. _(Function)_
+- __promptCallback__: Callback to invoke with index of button pressed (1, 2, or 3) or when the dialog is dismissed without a button press (0). _(Function)_
 
 - __title__: Dialog title _(String)_ (Optional, defaults to `Prompt`)
 
@@ -160,6 +168,8 @@ in the prompt dialog box. The `results` object passed to the callback
 contains the following properties:
 
 - __buttonIndex__: The index of the pressed button. _(Number)_ Note that the index uses one-based indexing, so the value is `1`, `2`, `3`, etc.
+
+
 
 - __input1__: The text entered in the prompt dialog box. _(String)_
 
@@ -181,13 +191,19 @@ contains the following properties:
 
 - Amazon Fire OS
 - Android
+- Firefox OS
 - iOS
+- Windows Phone 7 and 8
 
 ### Android Quirks
 
 - Android supports a maximum of three buttons, and ignores any more than that.
 
 - On Android 3.0 and later, buttons are displayed in reverse order for devices that use the Holo theme.
+
+### Firefox OS Quirks:
+
+Both native-blocking `window.prompt()` and non-blocking `navigator.notification.prompt()` are available.
 
 ## navigator.notification.beep
 

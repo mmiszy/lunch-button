@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Mealshaker.com</title>
     <meta name="description" content="">
-    <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui" name="viewport">
 
     <meta name="shortcut icon" href="favicon.ico">
 
@@ -46,37 +46,52 @@
     <meta name="apple-itunes-app" content="app-id=821119886"/>
 
     <!-- build:css styles/vendor.css -->
-    <link rel="stylesheet" href="bower_components/angular-rn-carousel/dist/angular-carousel.css">
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/rzslider.css">
     <!-- endbuild -->
   </head>
   <body>
   <div id="fb-root"></div>
-    <!--[if lt IE 7]>
+    <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!--[if lt IE 9]>
-      <script src="bower_components/es5-shim/es5-shim.js"></script>
-      <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
-
     <!-- Add your site or application content here -->
-    <main role="main" ng-view></main>
+    <div class="app-ad">
+        <img src="images/logo.png" alt="Mealshaker's logo">
+        <h1 class="visuallyhidden">Mealshaker</h1>
+        <p>Shake your phone to find a place to eat or drink. Brutally simple and fun. Try it now - just open this page on your phone or download our iPhone app.</p>
+        <a class="download-app" href="https://itunes.apple.com/us/app/mealshaker/id821119886">Download App</a>
+    </div>
+    <div class="phone-container">
+        <main role="main" ng-view ng-class="ngViewClasses" anim-class></main>
+    </div>
+
+    <footer class="mobile-hide app-footer" ng-init="description = 'Mealshaker: Shake to find a nearby place to eat!'">
+        <ul>
+            <li><button facebook-share description="description" class="facebook">facebook</button></li>
+            <li><button twitter-share description="description" class="twitter">twitter</button></li>
+        </ul>
+        <p>
+            <a href="mailto:contact@mealshaker.com">contact@mealshaker.com</a><br>
+            &copy; 2014 The Comet Cult All Rights Reserved
+        </p>
+    </footer>
 
     <script src="bower_components/angular/angular.js"></script>
 
     <!-- build:js scripts/plugins.js -->
+    <script src="scripts/modernizr.custom.04176.js"></script>
     <!-- endbuild -->
     <!-- build:js scripts/modules.js -->
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/ta-angularjs-slider/dist/rzslider.min.js"></script>
     <script src="bower_components/swiftclick/js/dist/swiftclick.min.js"></script>
     <script src="bower_components/shake.js/shake.js"></script>
-    <script src="bower_components/angular-rn-carousel/dist/angular-carousel.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -88,6 +103,7 @@
     <script src="scripts/services/geolocation.js"></script>
     <script src="scripts/services/utils.js"></script>
     <script src="scripts/directives/social.dir.js"></script>
+    <script src="scripts/directives/resize.dir.js"></script>
     <!-- endbuild -->
 
     <script>

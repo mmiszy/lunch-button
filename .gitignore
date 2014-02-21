@@ -5,6 +5,7 @@ dist
 .tmp
 .sass-cache
 .vagrant
+.ftppass
 Vagrantfile
 ConfR.sublime-workspace
 .tern-port

@@ -1,8 +1,8 @@
 {
-    "version": "0.1.2",
+    "version": "0.6.0",
     "name": "com.danielcwilson.plugins.googleanalytics",
     "cordova_name": "Google Universal Analytics Plugin",
-    "description": "Cordova (PhoneGap) Plugin to connect to the native Google's Universal Analytics SDK 3.0",
+    "description": "Simple tracking (screens/events) for Google Analytics SDK 3.0 (iOS/Android)",
     "license": "MIT License",
     "engines": [
         {

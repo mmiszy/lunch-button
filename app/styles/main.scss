@@ -1,38 +1,18 @@
 @import "normalize";
 @import "compass";
 
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Raleway Light'), local('Raleway-Light'), url(../fonts/-_Ctzj9b56b8RgXW8FArib3hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
-}
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 800;
-  src: local('Raleway ExtraBold'), local('Raleway-ExtraBold'), url(../fonts/1ImRNPx4870-D9a1EBUdPL3hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
-}
-
 $color-meal-bg: #ffbe22;
+$color-beer-bg: #2176ff;
+$color-secondary: #9e9e9e;
+$color-button: #c4c4c4;
+$color-main: #3d3d3d;
+$color-tip-bg: #f0f0f0;
 
-$color-main: white;
-$color-secondary: #74c8b7;
-$color-loaded: white;
-
-$color-white: white;
-$color-title: #f05a23;
-$color-subtitle: #404040;
-$color-address: #404040;
-$color-light: #f2f2f2;
-$color-light2: #d2d2d2;
-$color-footer: #cc981b;
-$font-family-normal: 'Raleway', sans-serif;
+$font-family-normal: 'Helvetica', 'Arial', sans-serif;
 
 $color-fb: #3e5d95;
 $color-twitter: #2aafea;
 
-$rwdBigPhone: "(min-width: 500px)";
 $rwdDesktop: "(min-width: 800px)";
 
 @mixin animation($anim) {
@@ -58,509 +38,478 @@ $rwdDesktop: "(min-width: 800px)";
     user-select: text;
 }
 
+@mixin nice-fonts () {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+}
+
 * {
     @include user-unselectable();
 }
 
-html, body, main, .container, .rn-carousel-container, .swipe-container {
-    width: 100%;
-    height: 100%;
-}
-
-.venue-container {
-    min-height: -webkit-calc(100% - 3em);
-    min-height: calc(100% - 3em);
-    height: auto;
-    padding-bottom: 3em;
-    display: table-cell;
-    vertical-align: top;
+.visuallyhidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px; width: 1px;
+    margin: -1px; padding: 0; border: 0;
 }
 
 body {
-    font-size: 10px;
+    font-family: $font-family-normal;
+    font-size: 12px;
+    color: $color-main;
+}
+
+html, body, main, .swipe-container {
+    width: 100%;
+    height: 100%;
+    @include box-sizing(border-box);
 }
 
 .container {
-    background-color: $color-main;
-    font-family: $font-family-normal;
+    padding: 10px;
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+    @include box-sizing(border-box);
+    @include pie-clearfix;
+}
+
+.inside {
+    padding: 10px 20px 20px 20px;
+    width: 100%;
+    @include box-sizing(border-box);
+}
+
+.result, .info {
+    background-color: white;
+}
+
+.left {
+    float: left;
+}
+
+.right  {
+    float: right;
+}
+
+body, h1, p, a, button, blockquote {
+    @include nice-fonts;
+}
+
+h1 {
+    font-size: 25px;
+    font-weight: 800;
+    margin: 0 0 30px 0;
+}
+
+p {
+    font-size: 12px;
+    line-height: 18px;
+}
+
+footer {
+    position: absolute;
+    z-index: 0;
+    bottom: 10px;
+    width: calc(100% - 60px);
+
+    &.inside {
+        padding-top: 0;
+    }
+}
+
+a {
+    &, &:link, &:visited, &:hover, &:active {
+        text-decoration: none;
+        font-weight: 800;
+        color: $color-main;
+    }
+}
+
+a, button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    @include box-sizing(border-box);
+    border: 2px solid black;
+    border-radius: 20px;
+    text-indent: -9999em;
+    opacity: 0.4;
+    background: 50% 50% / 20px 20px no-repeat;
+
+    &.icon-info {
+        background-image: url(../images/icon-info.png);
+    }
+
+    &.icon-close {
+        background-image: url(../images/icon-close.png);
+    }
+
+    &.icon-back {
+        background-image: url(../images/icon-back.png);
+    }
+}
+
+header {
+    @include clearfix;
+    min-height: 20px;
+
+    .loading &, .no-venue & {
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+.page-indicator {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+
+    li {
+        display: inline;
+        font-size: 35px;
+        line-height: 20px;
+        opacity: 0.25;
+        cursor: pointer;
+
+        &.selected {
+            opacity: 0.4;
+        }
+    }
+}
+
+
+/* main */
+
+.main {
+    .funny-text {
+        color: white;
+    }
 }
 
 .swipe-container {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.category {
-    padding: 2em 4em;
-    @include box-sizing(border-box);
-    position: relative;
-    height: 100%;
-
-    .category-title {
-        max-width: 100%;
-        margin: 3em auto;
-        display: block;
-    }
-
-    background: {
-        repeat: no-repeat;
-        position: 50% 35%;
-        size: 40%;
-    }
-}
-
-.meal-category {
-    background: {
-        color: $color-meal-bg;
-        image: url(../images/meal-bg.png);
-    }
-
-    .loading & {
-        @include animation(shake-bg-mobile .5s infinite);
-    }
-}
-
-footer.tcc {
-    font-size: 1.0em;
-    font-weight: 800;
-    color: $color-footer;
-    text-align: center;
     position: absolute;
-    bottom: 2em;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    text-transform: uppercase;
 
-    span {
-        display: none;
+    .swipe-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .swiper {
+            width: 100%;
+            height: 150px;
+            margin: 20px 0 0 0;
+        }
+
+        &.meal-cat {
+            background-color: $color-meal-bg;
+        }
+
+        &.beer-cat {
+            background-color: $color-beer-bg;
+        }
+
+        &.ng-hide-add, &.ng-hide-remove {
+            @include transition(transform .2s);
+        }
+
+        &.meal-cat {
+            &.ng-hide-add {
+                @include transform(translateX(0%));
+
+                &.ng-hide-add-active {
+                    @include transform(translateX(-100%));
+                }
+            }
+
+            &.ng-hide-remove {
+                @include transform(translateX(-100%));
+
+                &.ng-hide-remove-active {
+                    @include transform(translateX(0%));
+                }
+            }
+        }
+
+        &.beer-cat {
+            &.ng-hide-add {
+                @include transform(translateX(0%));
+
+                &.ng-hide-add-active {
+                    @include transform(translateX(100%));
+                }
+            }
+
+            &.ng-hide-remove {
+                @include transform(translateX(100%));
+
+                &.ng-hide-remove-active {
+                    @include transform(translateX(0%));
+                }
+            }
+        }
     }
-
-    > a {
-        color: $color-footer;
-        text-decoration: none;
-    }
-}
-
-header.top {
-    font-weight: 800;
-    color: $color-footer;
-    text-align: center;
-    font-size: 1.5em;
-    text-transform: uppercase;
 }
 
 .swipe-instruction {
-    display: block;
+    font-size: 25px;
     color: white;
-    font-family: $font-family-normal;
+    line-height: 30px;
+    min-height: 60px;
     font-weight: 800;
-    font-size: 2.0em;
-    line-height: 1.2;
-    text-align: center;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    bottom: 25em;
-    bottom: 26vh;
-    letter-spacing: .1em;
 }
 
-.button {
+.main-button {
+    -webkit-appearance: none;
+    width: 108.5px;
+    height: 81px;
+    background: url(../images/mealshaker.png) 0% 100% no-repeat;
     border: none;
-    -webkit-user-select: none;
-    padding: 1em 0;
-    margin: 0 auto;
-    display: block;
-    font-size: 2em;
-    font-weight: 800;
-    line-height: 1;
-    @include box-sizing(border-box);
-    cursor: pointer;
+    padding: 0;
+    margin: 0;
 
-    &:focus {
-        outline: none;
+    .loading & {
+        animation: shake .5s infinite;
+    }
+}
+
+.meal-cat {
+    .main-button {
+        background-size: 65.5px 54px;
+    }
+}
+
+.beer-cat {
+    .main-button {
+        background-size: 108.5px 81px;
+        background-image: url(../images/beershaker.png);
+    }
+}
+
+.distance {
+    font-size: 20px;
+    text-transform: capitalize;
+    color: rgba(0,0,0, 0.25);
+
+    strong {
+        font-weight: 800;
+        color: rgba(0,0,0, 0.4);
+        text-transform: uppercase;
+    }
+
+    .loading & {
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+
+
+/* result */
+
+
+.result {
+    position: absolute;
+    top: 0;
+
+    &.no-venue {
+        opacity: 0;
+        display: none;
+
+        .venue-tip {
+            display: none;
+        }
+    }
+
+    .venue-title, .funny-text {
+        margin-bottom: 0px;
+    }
+
+    .venue-category {
+        color: $color-secondary;
+        font-size: 15px;
+        margin-top: 0;
+    }
+
+    .venue-distance {
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+
+    .venue-address {
+        font-size: 15px;
+        margin-top: 0;
+        color: $color-secondary;
+    }
+
+    .venue-tip {
+        margin: 25px -30px;
+        padding: 30px;
+        text-indent: -0.5em;
+        font-size: 15px;
+        background-color: $color-tip-bg;
+        position: relative;
+        line-height: 1.5;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        @include box-sizing(border-box);
+    }
+
+    .venue-tip-container {
+        position: relative;
+        width: 100%;
+        margin: 0 -30px;
+        padding: 0 30px;
+
+        &.scrollable:after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 35px;
+            @include background-image(linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%));
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    }
+
+    .funny-text {
+        margin-top: 100px;
+    }
+
+    footer {
+        width: 100%;
+        margin-left: -10px;
+        bottom: 0;
+
+        .share-buttons {
+            padding: 0 30px 30px 30px;
+        }
+    }
+
+    &.meal-cat {
+        .shake-button {
+            background-color: $color-meal-bg;
+        }
+
+        .venue-title, .funny-text {
+            color: $color-meal-bg;
+        }
+    }
+
+    &.beer-cat {
+        .shake-button {
+            background-color: $color-beer-bg;
+        }
+
+        .venue-title, .funny-text {
+            color: $color-beer-bg;
+        }
+    }
+}
+
+.shake-button {
+    -webkit-appearance: none;
+    border: none;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    width: 100%;
+
+    .loading & {
+        animation: shake .5s infinite;
+    }
+
+    .no-venue & {
+        display: none;
     }
 }
 
 .share-buttons {
-    width: 240px;
-    margin: 0 auto 1em;
-    @include clearfix();
-
-    > button, > a {
-        @extend .button;
-
-        width: 50%;
-        height: 4em;
-        border: 2px solid $color-footer;
-        background-color: transparent;
-        border-radius: .3em;
+    ul {
+        list-style-type: none;
         padding: 0;
-        height: 2.2em;
-        color: transparent;
-        background: {
-            image: url(../images/social.png);
-            repeat: no-repeat;
-            size: 21px;
-        }
-    }
-    > button:active, > a:active {
-        -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
-        -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
-        background-color: rgba(0,0,0,0.1);
-        border: solid 1px rgba(0,0,0,0.4);
-    }
-
-    .facebook {
-        float: left;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        border-right-width: 1px;
-        background-position: 50% 10px;
-    }
-    .twitter {
-        float: right;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left-width: 1px;
-        background-position: 50% -65px;
-    }
-}
-
-
-.result {
-    background-color: $color-loaded;
-    display: table;
-    padding: 0;
-
-    .mealshake-logo {
-        position: absolute;
-        bottom: 1em;
-        left: 0;
+        margin: 0;
         width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button, .button {
+        width: 50px;
+        height: 50px;
+        @include box-sizing(border-box);
+        border-radius: 50px;
+        padding: 0;
+        border: 2px solid $color-button;
+        -webkit-appearance: none;
+        background: url(../images/icons-social.png) 50% 50% / 200px 25px no-repeat white;
+        text-indent: -9999em;
+        display: inline-block;
+        cursor: pointer;
+
+        &.facebook {
+            background-position: 0 50%;
+        }
+
+        &.twitter {
+            background-position: -50px 50%;
+        }
+
+        &.map {
+            background-position: -100px 50%;
+        }
+
+        &.phone {
+            background-position: -150px 50%;
+        }
+
+        &:active {
+            @include transform(translate3D(0, 1px, 0));
+        }
+    }
+}
+
+.info ul {
+    justify-content: flex-start;
+
+    li {
+        margin-right: 20px;
+    }
+}
+
+.no-flexbox .share-buttons {
+    ul {
+        @include clearfix();
+    }
+
+    li {
+        width: 25%;
+        float: left;
         text-align: center;
-
-        img {
-            max-width: 30px;
-        }
-    }
-
-    .share-buttons {
-        margin: 1em auto 0;
-
-        > button, > a {
-            border: none;
-        }
-        > button:active, > a:active {
-            background-color: rgba(42, 175, 234, 0.72);
-        }
-
-        .facebook {
-            background-color: $color-fb;
-            background-position: 50% -25px;
-        }
-        .facebook:active {
-            background-color: rgba(62, 93, 149, 0.86);
-        }
-
-        .twitter {
-            background-color: $color-twitter;
-            background-position: 50% -100px;
-        }
-        .twitter:active {
-            background-color: rgba(42, 175, 234, 0.86);
-        }
     }
 }
 
-.venue {
-    @include box-sizing(border-box);
-    padding: 3em 3em 0 3em;
-    text-align: center;
-    max-height: -webkit-calc(100vh - 3em);
-    max-height: calc(100vh - 3em);
-    overflow: hidden;
-}
-
-.venue-link {
-    text-decoration: none;
-}
-
-.venue-title {
-    @include user-selectable();
-    font-weight: 700;
-    color: $color-meal-bg;
-    font-size: 3.2em;
-    line-height: 1.2;
-    margin-bottom: .3em;
-    margin-top: 0;
-    position: relative;
-
-    &::after {
-        content: " ";
-        position: absolute;
-        background: url('../images/external-link.png') no-repeat 50% 50%;
-        background-size: 12px;
-        width: 12px;
-        height: 12px;
-        margin-left: 5px;
-        bottom: .75em;
-    }
-}
-.venue-title * {
-    @include user-selectable();
-}
-
-.venue-subtitle {
-    font-weight: 700;
-    color: $color-subtitle;
-    font-size: 1.8em;
-    line-height: 1;
-    margin-top: 0;
-}
-
-.venue-address, .venue-distance {
-    font-weight: 700;
-    color: $color-address;
-    font-size: 1.8em;
-    line-height: 1.3;
-    margin: 0;
-}
-
-.venue-distance {
-    margin-top: 2em;
-}
-
-.venue-address {
-    @include user-selectable();
-    margin-bottom: 2em;
-}
-.venue-address * {
-    @include user-selectable();
-}
-
-.venue-tip {
-    @include user-selectable();
-    font-weight: 300;
-    color: $color-subtitle;
-    font-size: 1.8em;
-    line-height: 1.3;
-    margin: 0 0 2em 0;
-    text-indent: -.4em;
-
-    &::before {
-        content: "\00201C";
-    }
-    &::after {
-        content: "\00201D";
-    }
-}
-
-.button-container {
-    position: fixed;
-    width: 100%;
-    padding: 2.5em 0 4.5em;
-    bottom: 0;
-
-    @include background-image(linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 20%,rgba(255,255,255,1) 100%));
-}
-
-.shake-button {
-    @extend .button;
-    width: 240px;
-    // position: absolute;
-    // bottom: 2em;
-    // left: 1.5em;
-    border-radius: .3em;
-    height: 3em;
-    background-color: $color-meal-bg;
-    color: $color-main;
-
-    .loading & {
-        @include animation(shake .5s infinite);
-    }
-}
-
-.main-button {
-    width: 40vw;
-    height: 40vw;
-    position: absolute;
-    left: 30%;
-    top: -webkit-calc(35% - 55px);
-    top: calc(35% - 55px);
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-
+.main-button, .shake-button, .share-buttons button {
     &:focus {
         outline: none;
     }
 }
 
-.container.main {
-    &.ng-hide-add {
-        @include transition(.5s ease-in all);
-        @include transform(translate3d(0, -100%, 0));
-        display: table !important;
-    }
-
-    &.ng-hide-add.ng-hide-add-active {
-        @include transform(translate3d(0, 0%, 0));
-    }
-}
-
-.container.result {
-    &.ng-hide-remove {
-        @include transition(.5s ease-out all);
-        @include transform(translate3d(0, -100%, 0));
-        display: table !important;
-    }
-
-    &.ng-hide-remove.ng-hide-remove-active {
-        @include transform(translate3d(0, 0%, 0));
-    }
-}
-
-.container {
-    @include backface-visibility(hidden);
-    @include perspective(1000);
-}
-
-.funny-text {
-    @include transform(scale(1));
-
-    &.ng-enter {
-        @include animation(splash .4s ease-out);
-    }
-
-    &.ng-leave {
-    }
-
-    &.ng-leave.ng-leave-active {
-    }
-}
-
-.funny-text.error {
-    @include animation(splash-infinite 2.4s ease-out infinite);
-    color: $color-footer;
-}
-
-.swipe-instruction.funny-text {
-    bottom: 30vh;
-}
-
-h1.funny-text {
-    color: $color-light2;
-    font-size: 3.2em;
-    margin-top: 20vh;
-}
-
-h1.funny-text.error {
-    font-size: 3.0em;
-    margin-left: -1.5em;
-    margin-right: -1.5em;
-}
-
-
-
-@media screen and #{$rwdBigPhone} {
-    .venue {
-        padding-top: 4em;
-    }
-
-    .meal-category {
-        background-size: 100px;
-
-        .loading & {
-            @include animation(shake-bg .5s infinite);
-        }
-    }
-
-    .main-button {
-        width: 100px;
-        height: 100px;
-        left: -webkit-calc(50% - 50px);
-        left: calc(50% - 50px);
-        top: -webkit-calc(35% - 40px);
-        top: calc(35% - 40px);
-    }
-
-    .category {
-        .category-title {
-            margin-top: 20em;
-            margin-top: 20vh;
-            max-width: 285px;
-        }
-    }
-
-    .venue-container {
-        vertical-align: middle;
-    }
-
-    .result {
-        margin: 0 auto;
-        max-width: 600px;
-
-        .mealshake-logo {
-            position: static;
-
-            img {
-                max-width: 40px;
-            }
-        }
-    }
-
-    .shake-button {
-        margin: 2.5em auto;
-    }
-
-    .venue-tip {
-        font-size: 1.6em;
-        line-height: 1.5;
-    }
-
-    footer.tcc {
-        font-size: 1.0em;
-        bottom: 2em;
-        line-height: 1.8;
-
-        span {
-            display: inline;
-        }
-    }
-
-    header.top {
-        font-size: 2.0em;
-    }
-
-    .swipe-instruction {
-        top: 18em;
-        top: 50vh;
-    }
-
-    .button-container {
-        position: static;
-        width: 100%;
-        padding: 0;
-
-        background-image: none;
-    }
-
-    .shake-button {
-        margin-top: 1.5em;
-    }
-
-    h1.funny-text {
-        margin-top: 10vh;
-        margin-bottom: 10vh;
-    }
-}
 
 @media screen and #{$rwdDesktop} {
 
@@ -574,7 +523,7 @@ h1.funny-text.error {
     display: none;
 }
 
-@media screen and #{$rwdBigPhone} {
+@media screen and #{$rwdDesktop} {
     .mobile-hide {
         display: block;
     }
@@ -678,4 +627,360 @@ h1.funny-text.error {
     0.2% { opacity: 1; @include transform(scale(.1)); }
     10% { @include transform(scale(1)); }
     100% { @include transform(scale(1)); }
+}
+
+
+
+@keyframes flip-right-in {
+  0% {
+    @include transform(rotate3d(0, 1, 0, -180deg) scale(1));
+  }
+
+  50% {
+    @include transform(rotate3d(0, 1, 0, -90deg) scale(0.8));
+  }
+
+  100% {
+    @include transform(rotate3d(0, 1, 0, 0deg) scale(1));
+  }
+}
+
+@keyframes flip-right-out {
+  0% {
+    @include transform(rotate3d(0, 1, 0, 0deg) scale(1));
+  }
+
+  50% {
+    @include transform(rotate3d(0, 1, 0, 90deg) scale(0.8));
+  }
+
+  100% {
+    @include transform(rotate3d(0, 1, 0, 180deg) scale(1));
+  }
+}
+
+@keyframes flip-left-in {
+  0% {
+    @include transform(rotate3d(0, 1, 0, 180deg) scale(1));
+  }
+
+  50% {
+    @include transform(rotate3d(0, 1, 0, 90deg) scale(0.8));
+  }
+
+  100% {
+    @include transform(rotate3d(0, 1, 0, 0deg) scale(1));
+  }
+}
+
+@keyframes flip-left-out {
+  0% {
+    @include transform(rotate3d(0, 1, 0, 0deg) scale(1));
+  }
+
+  50% {
+    @include transform(rotate3d(0, 1, 0, -90deg) scale(0.8));
+  }
+
+  100% {
+    @include transform(rotate3d(0, 1, 0, -180deg) scale(1));
+  }
+}
+
+
+/* ng-animate */
+
+html {
+    background-color: black;
+}
+
+body {
+    @include perspective(800px);
+}
+
+main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+$settings: .3s ease-in;
+
+main.ready {
+    @include transform-style(preserve-3d);
+    @include backface-visibility(hidden);
+
+    &.flip-right {
+        &.ng-enter {
+            animation: flip-right-in $settings;
+            z-index: 800;
+        }
+
+        &.ng-enter-active {
+            animation: flip-right-in $settings;
+            z-index: 900;
+        }
+
+        &.ng-leave {
+            animation: flip-right-out $settings;
+            z-index: 900;
+        }
+
+        &.ng-leave-active {
+            animation: flip-right-out $settings;
+            z-index: 800;
+        }
+    }
+
+    &.flip-left {
+        &.ng-enter {
+            animation: flip-left-in $settings;
+            z-index: 800;
+        }
+
+        &.ng-enter-active {
+            animation: flip-left-in $settings;
+            z-index: 900;
+        }
+
+        &.ng-leave {
+            animation: flip-left-out $settings;
+            z-index: 900;
+        }
+
+        &.ng-leave-active {
+            animation: flip-left-out $settings;
+            z-index: 800;
+        }
+    }
+
+    .result, .main {
+        &.ng-hide-add, &.ng-hide-remove {
+            display: block !important;
+            @include transition(opacity .3s !important);
+        }
+
+        &.ng-hide-add {
+            opacity: 1;
+            z-index: 1;
+
+            &.ng-hide-add-active {
+                opacity: 0;
+            }
+        }
+
+        &.ng-hide-remove {
+            opacity: 0;
+            z-index: 2;
+
+            &.ng-hide-remove-active {
+                opacity: 1;
+            }
+        }
+    }
+
+    .result {
+        z-index: 2;
+    }
+}
+
+.funny-text {
+    text-align: center;
+
+    &.ng-enter, &.ng-enter-active {
+        animation: splash 0.3s ease-in;
+    }
+}
+
+.dialog {
+    position: absolute;
+    z-index: 999999;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    &.ng-enter, &.ng-leave {
+        display: block !important;
+        @include transition(opacity .3s !important);
+    }
+
+    &.ng-leave {
+        opacity: 1;
+
+        &.ng-leave-active {
+            opacity: 0;
+        }
+    }
+
+    &.ng-enter {
+        opacity: 0;
+
+        &.ng-enter-active {
+            opacity: 1;
+        }
+    }
+
+    .dialog-container {
+        width: calc(100% - 20px);
+        min-height: 40%;
+        border: 4px solid;
+        border-radius: 6px;
+        box-sizing: border-box;
+        margin: 0 10px;
+        position: relative;
+        top: 100px;
+        background: white;
+    }
+
+    &.meal-cat .dialog-container {
+        border-color: $color-meal-bg;
+    }
+
+    &.beer-cat .dialog-container {
+        border-color: $color-beer-bg;
+    }
+
+    .dialog-header {
+        @include clearfix();
+
+        .close {
+            float: right;
+            clear: both;
+            font-size: 30px;
+            padding: 10px 10px 0 0;
+            display: block;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+        }
+    }
+
+    .dialog-body {
+        font: lighter 24px/36px 'Helvetica Neue Light', 'Helvetic Neue', 'Helvetica', sans-serif;
+        text-align: center;
+        padding: 20px;
+
+        span {
+            @include user-selectable();
+        }
+    }
+}
+
+.app-ad {
+    display: none;
+}
+
+
+@media screen and (min-width: 769px) {
+    p, a, blockquote, h1, .distance, strong {
+        @include user-selectable();
+    }
+
+    body, html {
+        background-color: white;
+    }
+
+    $iphoneWidth: 280px;
+    $iphoneHeight: 497px;
+    $iphonePaddingV: 152px;
+    $iphonePaddingH: 78px;
+
+    .phone-container {
+        position: relative;
+        width: $iphoneWidth;
+        height: $iphoneHeight;
+        margin: 0 auto;
+        top: 18px;
+        padding: $iphonePaddingV $iphonePaddingH;
+        background: url(../images/iphone.png) no-repeat 0 0;
+        overflow: hidden;
+        perspective: 800px;
+    }
+
+    main {
+        width: $iphoneWidth;
+        height: $iphoneHeight;
+        top: $iphonePaddingV;
+        left: $iphonePaddingH;
+    }
+
+    .app-ad {
+        display: block;
+        text-align: center;
+        margin-top: 70px;
+
+        p {
+            font: lighter 24px/36px 'Helvetica Neue Light', 'Helvetic Neue', 'Helvetica', sans-serif;
+            max-width: 610px;
+            margin: 40px auto 30px;
+        }
+
+        .download-app {
+            font: 17px/45px 'Helvetica Neue Medium', 'Helvetic Neue', 'Helvetica', sans-serif;
+            color: $color-meal-bg;
+            background: transparent;
+            border: 2px solid $color-meal-bg;
+            height: 45px;
+            padding: 0 20px;
+            border-radius: 5px;
+            display: inline-block;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:active {
+                transform: translateY(1px);
+            }
+        }
+    }
+
+    .app-footer {
+        position: static;
+        width: 280px;
+        margin: 30px auto 80px;
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        p {
+            text-align: center;
+            font: 14px/20px 'Helvetica Neue Regular', 'Helvetic Neue', 'Helvetica', sans-serif;
+        }
+
+        a, p {
+            color: #bfbfbf;
+        }
+
+        button {
+            width: 25px;
+            height: 25px;
+            @include box-sizing(border-box);
+            border-radius: 25px;
+            padding: 0;
+            -webkit-appearance: none;
+            background: url(../images/icons-social-small.png) 50% 50% / 68px 24px no-repeat transparent;
+            text-indent: -9999em;
+            display: inline-block;
+            border: none;
+            margin: 0 10px;
+
+            &.facebook {
+                background-position: 0 50%;
+            }
+
+            &.twitter {
+                background-position: -43px 50%;
+            }
+        }
+    }
 }

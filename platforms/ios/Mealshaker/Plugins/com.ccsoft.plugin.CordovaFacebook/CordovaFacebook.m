@@ -65,6 +65,7 @@ static NSMutableArray *publishPermissions;
     
     NSURL *url = [params objectForKey:@"url"];
     NSString *scheme = @"fb";
+
     if (appId == nil) {
         appId = (NSString *) [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"];
     }
@@ -282,12 +283,12 @@ static NSMutableArray *publishPermissions;
 
 - (void)share:(CDVInvokedUrlCommand*)command
 {
-    FBShareDialogParams *params = [[FBShareDialogParams alloc] init];
+    FBLinkShareParams *params = [[FBLinkShareParams alloc] init];
     params.name = [command.arguments objectAtIndex:0];
     params.link = [NSURL URLWithString:[command.arguments objectAtIndex:1]];
     params.picture = [NSURL URLWithString:[command.arguments objectAtIndex:2]];
     params.caption = [command.arguments objectAtIndex:3];
-    params.description = [command.arguments objectAtIndex:4];
+    params.linkDescription = [command.arguments objectAtIndex:4];
     BOOL canShare = [FBDialogs canPresentShareDialogWithParams:params];
     if (canShare) {
         // FBDialogs call to open Share dialog

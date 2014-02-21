@@ -1,1 +1,128 @@
-{"prepare_queue":{"installed":[],"uninstalled":[]},"config_munge":{"config.xml":{"/*":{"<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>":1,"<feature name=\"CordovaFacebook\"><param name=\"ios-package\" value=\"CordovaFacebook\" /></feature>":1,"<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>":1,"<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>":1,"<feature name=\"SocialMessage\"><param name=\"ios-package\" value=\"SocialMessage\" /></feature>":1,"<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>":1,"<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>":1,"<feature name=\"CanOpen\"><param name=\"ios-package\" value=\"CanOpen\" /></feature>":1,"<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>":1}},"framework":{"CoreGraphics.framework":{"false":2},"social.framework":{"true":1},"AudioToolbox.framework":{"true":1},"UIKit.framework":{},"Foundation.framework":{},"SystemConfiguration.framework":{"false":1},"CoreData.framework":{"false":1},"AdSupport.framework":{"false":1},"libz.dylib":{"false":1}}},"installed_plugins":{"org.apache.cordova.geolocation":{"PACKAGE_NAME":"com.thecometcult.mealshaker"},"com.ccsoft.plugin.CordovaFacebook":{"PACKAGE_NAME":"com.thecometcult.mealshaker"},"org.apache.cordova.splashscreen":{"PACKAGE_NAME":"com.thecometcult.mealshaker"},"org.apache.cordova.dialogs":{"PACKAGE_NAME":"com.thecometcult.mealshaker"},"socialmessage":{"PACKAGE_NAME":"com.thecometcult.mealshaker"},"org.apache.cordova.console":{"PACKAGE_NAME":"com.thecometcult.mealshaker"},"org.apache.cordova.inappbrowser":{"PACKAGE_NAME":"com.thecometcult.mealshaker"},"com.philmerrell.cordova.canopen":{"PACKAGE_NAME":"com.thecometcult.mealshaker"},"com.danielcwilson.plugins.googleanalytics":{"PACKAGE_NAME":"com.thecometcult.mealshaker"}},"dependent_plugins":{}}
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"CordovaFacebook\"><param name=\"ios-package\" value=\"CordovaFacebook\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"CanOpen\"><param name=\"ios-package\" value=\"CanOpen\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SocialMessage\"><param name=\"ios-package\" value=\"SocialMessage\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "framework": {
+                "parents": {
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": "false",
+                            "count": 4
+                        }
+                    ],
+                    "AudioToolbox.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "SystemConfiguration.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CoreData.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "libz.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "libsqlite3.0.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "Social.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.ccsoft.plugin.CordovaFacebook": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        },
+        "com.danielcwilson.plugins.googleanalytics": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        },
+        "com.philmerrell.cordova.canopen": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        },
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        },
+        "org.apache.cordova.dialogs": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        },
+        "org.apache.cordova.geolocation": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        },
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        },
+        "org.apache.cordova.splashscreen": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        },
+        "socialmessage": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        }
+    },
+    "dependent_plugins": {}
+}

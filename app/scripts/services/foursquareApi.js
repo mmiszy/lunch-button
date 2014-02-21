@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('lunchButtonApp')
-  .service('Foursquareapi', ['$http', 'FOURSQUARE', 'MAX_DISTANCE', '$q', 'Utils', function Foursquareapi($http, FOURSQUARE, MAX_DISTANCE, $q, Utils) {
+  .service('Foursquareapi', ['$http', 'FOURSQUARE', '$q', 'Utils', function Foursquareapi($http, FOURSQUARE, $q, Utils) {
 
     var filterBadVenues = function (venues) {
-      return venues.filter(function (venue) {
+      var filteredVenues = venues.filter(function (venue) {
         if (!venue.stats.tipCount) {
           return false;
         }
@@ -17,17 +17,13 @@ angular.module('lunchButtonApp')
 
         return true;
       });
-    };
-
-    var getFormattedDistance = function (distance) {
-      if (distance >= 1000) {
-        return (distance/1000).toFixed(2) + ' km';
-      } else {
-        return distance + ' metres';
+      if (filteredVenues.length < 2) {
+        return venues;
       }
+      return filteredVenues;
     };
 
-    this.getVenues = function (position, category) {
+    this.getVenues = function (position, category, distance) {
       var categories = [FOURSQUARE.CATEGORIES[category]].join(',');
       var ll = [position.coords.latitude, position.coords.longitude].join(',');
 
@@ -38,7 +34,7 @@ angular.module('lunchButtonApp')
         params: {
           ll: ll,
           categoryId: categories,
-          radius: MAX_DISTANCE,
+          radius: distance || 800,
           limit: 50,
 
           intent: 'browse',
@@ -67,8 +63,11 @@ angular.module('lunchButtonApp')
         }
       }).then(function (res) {
         /*jshint camelcase: false */
-        res.data.response.venue.location.formatted_distance = getFormattedDistance(res.data.response.venue.location.distance);
-        return res.data.response.venue;
+        var venue = res.data.response.venue;
+        var category = (venue.categories && venue.categories[0] && venue.categories[0].name) || '';
+        venue.category = category;
+
+        return venue;
       });
     };
 

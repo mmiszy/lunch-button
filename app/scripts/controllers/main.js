@@ -1,16 +1,39 @@
 'use strict';
 
 angular.module('lunchButtonApp')
-  .controller('MainCtrl', ['$scope', '$window', '$timeout', '$q', '$sce', '$filter', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics', function ($scope, $window, $timeout, $q, $sce, $filter, Foursquareapi, Geolocation, Utils, Analytics) {
-    $scope.categories = ['meal']; // ['meal', 'beer'];
+  .controller('MainCtrl',
+  ['$scope', '$rootScope', '$window', '$timeout', '$q', '$sce', '$filter', '$location', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics',
+  function ($scope, $rootScope, $window, $timeout, $q, $sce, $filter, $location, Foursquareapi, Geolocation, Utils, Analytics) {
+    $scope.categories = [{
+      id: 'meal',
+      text: 'to eat'
+    }, {
+      id: 'beer',
+      text: 'to drink'
+    }];
+    $scope.search = {};
     $scope.loadingTextIndex = '';
+    $scope.search.distance = 800;
+
+    $rootScope.currentCategory = $rootScope.currentCategory || 'meal';
+
+    $timeout(function () {
+      if (!$rootScope.ngViewClasses) {
+        $rootScope.ngViewClasses = ['ready'];
+      }
+    });
 
     Analytics.trackPageView('Main');
 
     var loadingTimeout;
     var lastTextIndex;
 
-    $scope.texts = ['Rolling up some meatballs', 'Sniffing for hot sausage', 'Wrapping up tacos', 'Firing up the grill', 'Pouring some hot choco', 'Putting a cherry on top', 'Laying Bacon strips!', 'Opening duck season', 'Chickening out', 'Slicing up the pork'];
+    var allTexts = {
+        meal: ['Rolling up some meatballs', 'Sniffing for hot sausage', 'Wrapping up tacos', 'Firing up the grill', 'Pouring some hot choco', 'Putting a cherry on top', 'Laying Bacon strips!', 'Opening duck season', 'Chickening out', 'Slicing up the pork'],
+        beer: ['Tap me an IPA please', 'Shaken, not stirred', 'A whiskey on the rock', 'A guinness a day, keeps the doctor away', 'In wine there is truth']
+    };
+
+    $scope.texts = allTexts.meal;
 
     if (Utils.isCordova()) {
       $scope.$on('$viewContentLoaded', function() {
@@ -35,10 +58,25 @@ angular.module('lunchButtonApp')
           $window.open(venue.canonicalUrl, '_blank', 'location=yes,transitionstyle=fliphorizontal,presentationstyle=pagesheet,enableViewportScale=yes,toolbar=yes');
         });
     };
+
+    $scope.openMap = function ($event, url) {
+      $scope.openInSystemBrowser($event, 'http://maps.apple.com/?q=' + $scope.venue.location.lat + ',' + $scope.venue.location.lng);
+    };
+
+    $scope.callNumber = function ($event, number) {
+      if (Utils.isCordova() || Utils.isMobile()) {
+        $window.location.href = 'tel:' + number;
+      } else {
+        $scope.showPhoneNumber(number);
+      }
+    };
+
     $scope.openInSystemBrowser = function ($event, url) {
+      $event.preventDefault();
       if (Utils.isCordova()) {
-        $event.preventDefault();
         $window.open(url, '_system');
+      } else {
+        $window.location.href = url;
       }
     };
     $scope.getRandomLunchVenue = function (category, event) {
@@ -46,7 +84,8 @@ angular.module('lunchButtonApp')
         return;
       }
 
-      category = category || $scope.currentCategory || 'meal';
+      category = category || $rootScope.currentCategory || 'meal';
+      $scope.texts = allTexts[category];
 
       trackShake(event);
 
@@ -68,13 +107,19 @@ angular.module('lunchButtonApp')
         .then(function (pos) {
           position = pos;
 
-          return Foursquareapi.getVenues(position, category).catch(function () {
+          return Foursquareapi.getVenues(position, category, $scope.search.distance).catch(function () {
             return $q.reject({
               title: 'Network Issue',
               message: 'Out of Internetz?!\nConnect & Try again.'
             });
           });
         }).then(function (venues) {
+          if (!venues || !venues.length) {
+            return $q.reject({
+              title: 'No venues',
+              message: 'No venues found in ' + $filter('format_distance')($scope.search.distance)
+            });
+          }
           var venue = Utils.getRandomArrayItem(venues);
           return Foursquareapi.getOneVenue(venue.id, position);
         }).then(function (venue) {
@@ -82,12 +127,10 @@ angular.module('lunchButtonApp')
 
           $scope.venue = venue;
           $scope.tip = Foursquareapi.getRandomTipForVenue(venue);
-          $scope.currentCategory = category;
           $scope.done = true;
         }).catch(function (errObj) {
           if (Utils.isCordova()) {
-            $window.navigator.notification.alert(errObj.message,
-              function () {}, errObj.title);
+            $window.navigator.notification.alert(errObj.message, angular.noop, errObj.title);
           } else {
             $scope.errorMessage = $sce.trustAsHtml($filter('nl2br')(errObj.message));
           }
@@ -100,6 +143,9 @@ angular.module('lunchButtonApp')
       var index;
       do {
         index = Utils.getRandomInt(0, $scope.texts.length - 1);
+        if ($scope.texts.length === 1) {
+          break;
+        }
       } while (lastTextIndex === index);
       lastTextIndex = index;
 
@@ -111,6 +157,20 @@ angular.module('lunchButtonApp')
       $scope.loadingTextIndex = '';
       $timeout.cancel(loadingTimeout);
     }
+
+    $scope.showPhoneNumber = function (number) {
+      $scope.dialog = {
+        text: $sce.trustAsHtml('Phone number:<br><span>' + number + '</span>')
+      };
+    };
+
+    $scope.hideDialog = function () {
+      $scope.dialog = null;
+    };
+
+    $scope.goTo = function (where) {
+      $rootScope.currentCategory = where;
+    };
 
     $scope.$watch('loading', function (newVal) {
       if (newVal === true) {
@@ -129,5 +189,30 @@ angular.module('lunchButtonApp')
   .filter('nl2br', [function () {
     return function (text) {
       return text && text.replace(/\n|&#10;/g, '<br>');
+    };
+  }])
+  .filter('format_distance', function () {
+    return function (distance) {
+      if (distance >= 1000) {
+        return (distance / 1000).toFixed(1) + ' km';
+      } else {
+        return distance + ' m';
+      }
+    };
+  })
+  .directive('animClass', ['$route', function ($route) {
+    return {
+      link: function (scope, el) {
+        var $el = angular.element(el);
+        var enterClass = $route.current.animation && $route.current.animation.enter;
+        var leaveClass = $route.current.animation && $route.current.animation.leave;
+
+        $el.addClass(enterClass);
+
+        scope.$on('$destroy', function () {
+          $el.removeClass(enterClass);
+          $el.addClass(leaveClass);
+        });
+      }
     };
   }]);
