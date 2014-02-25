@@ -2,7 +2,7 @@
     <section class="venue-container">
         <footer class="mealshake-logo"><img src="/images/meal-footer.png" alt=""></footer>
         <div class="venue">
-            <a class="venue-link" ng-href="{{venue.canonicalUrl}}" ng-click="showVenue($event, venue);" target="_blank" ng-if="!loading">
+            <a class="venue-link" ng-href="{{venue.canonicalUrl}}" ng-click="showVenue($event, venue);" target="_blank" ng-if="!loading && !errorMessage">
                 <h1 ng-bind="venue.name" class="venue-title"></h1>
                 <p class="venue-distance"><span ng-bind="venue.location.formatted_distance"></span> from you!</p>
                 <p ng-if="venue.location.address || venue.location.city" class="venue-address">
@@ -11,7 +11,7 @@
             </a>
             <blockquote ng-bind="tip.text" class="venue-tip" ng-if="!loading && !errorMessage"></blockquote>
             <h1 class="funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></h1>
-            <h1 class="funny-text error" ng-if="!loading && errorMessage" ng-bind="errorMessage"></h1>
+            <h1 class="funny-text error" ng-show="errorMessage" ng-bind-html="errorMessage"></h1>
         </div>
         <div class="button-container">
             <button class="shake-button" ng-click="getRandomLunchVenue(currentCategory)">
@@ -33,7 +33,7 @@
             <p class="swipe-instruction desktop-hide" ng-if="!loading && !errorMessage">Shake your phone to <br> find a place to eat.</p>
             <p class="swipe-instruction mobile-hide" ng-if="!loading && !errorMessage">Click the icon to find a <br> place to eat.</p>
             <p class="swipe-instruction funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></p>
-            <p class="swipe-instruction funny-text error" ng-if="!loading && errorMessage" ng-bind="errorMessage"></p>
+            <p class="swipe-instruction funny-text error" ng-show="errorMessage" ng-bind-html="errorMessage"></p>
             <footer class="tcc">
                 <div class="share-buttons">
                     <button facebook-share class="facebook">f</button>

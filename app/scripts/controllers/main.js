@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lunchButtonApp')
-  .controller('MainCtrl', ['$scope', '$window', '$timeout', '$q', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics', function ($scope, $window, $timeout, $q, Foursquareapi, Geolocation, Utils, Analytics) {
+  .controller('MainCtrl', ['$scope', '$window', '$timeout', '$q', '$sce', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics', function ($scope, $window, $timeout, $q, $sce, Foursquareapi, Geolocation, Utils, Analytics) {
     $scope.categories = ['meal']; // ['meal', 'beer'];
     $scope.loadingTextIndex = '';
 
@@ -52,6 +52,8 @@ angular.module('lunchButtonApp')
 
       $scope.loading = true;
       $scope.done = false;
+      $scope.errorMessage = '';
+
       var position;
       Geolocation.getCurrentPosition()
         .catch(function (errMsg) {
@@ -69,7 +71,7 @@ angular.module('lunchButtonApp')
           return Foursquareapi.getVenues(position, category).catch(function () {
             return $q.reject({
               title: 'Network Issue',
-              message: 'Could not retrieve places. Make sure you are connected to the internet and try again.'
+              message: 'Out of Internetz?!<br> Connect & Try again.'
             });
           });
         }).then(function (venues) {
@@ -87,7 +89,7 @@ angular.module('lunchButtonApp')
             $window.navigator.notification.alert(errObj.message,
               function () {}, errObj.title);
           } else {
-            $scope.errorMessage = errObj.message;
+            $scope.errorMessage = $sce.trustAsHtml(errObj.message);
           }
         }).finally(function () {
           $scope.loading = false;
