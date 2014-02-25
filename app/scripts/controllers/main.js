@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lunchButtonApp')
-  .controller('MainCtrl', ['$scope', '$window', '$timeout', '$q', '$sce', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics', function ($scope, $window, $timeout, $q, $sce, Foursquareapi, Geolocation, Utils, Analytics) {
+  .controller('MainCtrl', ['$scope', '$window', '$timeout', '$q', '$sce', '$filter', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics', function ($scope, $window, $timeout, $q, $sce, $filter, Foursquareapi, Geolocation, Utils, Analytics) {
     $scope.categories = ['meal']; // ['meal', 'beer'];
     $scope.loadingTextIndex = '';
 
@@ -71,7 +71,7 @@ angular.module('lunchButtonApp')
           return Foursquareapi.getVenues(position, category).catch(function () {
             return $q.reject({
               title: 'Network Issue',
-              message: 'Out of Internetz?!<br> Connect & Try again.'
+              message: 'Out of Internetz?!\nConnect & Try again.'
             });
           });
         }).then(function (venues) {
@@ -89,7 +89,7 @@ angular.module('lunchButtonApp')
             $window.navigator.notification.alert(errObj.message,
               function () {}, errObj.title);
           } else {
-            $scope.errorMessage = $sce.trustAsHtml(errObj.message);
+            $scope.errorMessage = $sce.trustAsHtml($filter('nl2br')(errObj.message));
           }
         }).finally(function () {
           $scope.loading = false;
@@ -125,4 +125,9 @@ angular.module('lunchButtonApp')
         $scope.getRandomLunchVenue($scope.currentCategory, event);
       });
     }, false);
+  }])
+  .filter('nl2br', [function () {
+    return function (text) {
+      return text && text.replace(/\n|&#10;/g, '<br>');
+    };
   }]);
