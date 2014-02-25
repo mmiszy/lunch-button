@@ -461,6 +461,12 @@ h1.funny-text {
     margin-top: 20vh;
 }
 
+h1.funny-text.error {
+    font-size: 3.0em;
+    margin-left: -1.5em;
+    margin-right: -1.5em;
+}
+
 
 
 @media screen and #{$rwdBigPhone} {
