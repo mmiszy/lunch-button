@@ -38,19 +38,12 @@
     "karma-requirejs": "~0.2.1",
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.9",
-    "karma-ng-html2js-preprocessor": "~0.1.0",
-    "cucumber": "~0.3.1",
-    "protractor": "git+https://github.com/angular/protractor.git",
-    "grunt-cucumber": "~0.2.1",
-    "selenium-webdriver": "~2.34.0",
-    "grunt-env": "~0.4.0",
-    "grunt-shell": "~0.3.1"
+    "karma-ng-html2js-preprocessor": "~0.1.0"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt test",
-    "postinstall": "./node_modules/protractor/bin/webdriver-manager update"
+    "test": "grunt test"
   }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: Foursquareapi', function () {
+xdescribe('Service: Foursquareapi', function () {
 
   // load the service's module
   beforeEach(module('lunchButtonApp'));

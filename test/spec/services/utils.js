@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: Utils', function () {
+xdescribe('Service: Utils', function () {
 
   // load the service's module
   beforeEach(module('lunchButtonApp'));

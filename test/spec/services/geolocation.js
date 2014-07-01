@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: Geolocation', function () {
+xdescribe('Service: Geolocation', function () {
 
   // load the service's module
   beforeEach(module('lunchButtonApp'));
