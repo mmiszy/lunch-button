@@ -23,7 +23,7 @@
     <platform name="android">
         <config-file target="config.xml" parent="/*">
             <feature name="SocialMessage">
-                <param name="android-package" value="uk.co.ilee.socialmessage.SocialMessage" />
+                <param name="android-package" value="socialmessage.SocialMessage" />
             </feature>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/*">

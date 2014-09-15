@@ -76,7 +76,8 @@ angular.module('lunchButtonApp.social', [])
     }
   };
 }])
-.directive('facebookShare', ['$window', '$log', 'metaService', 'cordovaShareService', 'Analytics', 'Utils', function ($window, $log, metaService, cordovaShareService, Analytics, Utils) {
+.directive('facebookShare', ['$window', '$log', '$timeout', 'metaService', 'cordovaShareService', 'Analytics', 'Utils',
+  function ($window, $log, $timeout, metaService, cordovaShareService, Analytics, Utils) {
   var currentPlace;
 
   function init (scope, elm) {
@@ -125,18 +126,22 @@ angular.module('lunchButtonApp.social', [])
 
       if (Utils.isCordova()) {
         init(scope, elm, attrs);
-      } else if ($window.fbAsyncInit) {
-        if ($window.fbAsyncInit.hasRun) {
-          init(scope, elm, attrs);
-        } else {
-          var cb = $window.fbAsyncInit;
-          $window.fbAsyncInit = function () {
-            cb();
-            init(scope, elm, attrs);
-          };
-        }
       } else {
-        $log.error('[directive:facebookShare] fbAsyncInit must be defined first');
+        $timeout(function () {  // wait for the fb SDK to load
+          if ($window.fbAsyncInit) {
+            if ($window.fbAsyncInit.hasRun) {
+              init(scope, elm, attrs);
+            } else {
+              var cb = $window.fbAsyncInit;
+              $window.fbAsyncInit = function () {
+                cb();
+                init(scope, elm, attrs);
+              };
+            }
+          } else {
+            $log.error('[directive:facebookShare] fbAsyncInit must be defined first');
+          }
+        });
       }
     }
   };

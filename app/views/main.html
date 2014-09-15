@@ -1,49 +1,62 @@
-<div class="container result" ng-hide="!venue" ng-class="{'loading': loading}">
-    <section class="venue-container">
-        <footer class="mealshake-logo"><img src="/images/meal-footer.png" alt=""></footer>
-        <div class="venue">
-            <a class="venue-link" ng-href="{{venue.canonicalUrl}}" ng-click="showVenue($event, venue);" target="_blank" ng-if="!loading && !errorMessage">
-                <h1 ng-bind="venue.name" class="venue-title"></h1>
-                <p class="venue-distance"><span ng-bind="venue.location.formatted_distance"></span> from you!</p>
-                <p ng-if="venue.location.address || venue.location.city" class="venue-address">
-                    <span ng-if="venue.location.address" ng-bind-template="{{venue.location.address}},"></span> <span ng-bind="venue.location.city"></span>
-                </p>
-            </a>
-            <blockquote ng-bind="tip.text" class="venue-tip" ng-if="!loading && !errorMessage"></blockquote>
-            <h1 class="funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></h1>
-            <h1 class="funny-text error" ng-show="errorMessage" ng-bind-html="errorMessage"></h1>
+<div class="swipe-container main" ng-hide="venue" ng-class="{loading: loading}">
+    <div class="container swipe-item" ng-repeat="cat in categories" ng-show="currentCategory === cat.id" ng-class="[cat.id + '-cat']">
+        <header>
+            <a href="#/info" class="left icon icon-info">i</a>
+            <ul class="page-indicator right"><li ng-repeat="c in categories" ng-class="{selected: c.id === currentCategory}" ng-click="goTo(c.id)">&middot;</li></ul>
+        </header>
+        <div class="swiper" ng-swipe-left="goTo('beer')" ng-swipe-right="goTo('meal')"></div>
+        <div class="inside">
+            <footer>
+                <button class="main-button" ng-click="getRandomLunchVenue()"></button>
+                <p class="swipe-instruction desktop-hide" ng-if="!loading && !errorMessage">Shake your phone to <br> find a place {{cat.text}}.</p>
+                <p class="swipe-instruction mobile-hide" ng-if="!loading && !errorMessage">Click the icon to <br> find a place {{cat.text}}.</p>
+                <p class="swipe-instruction funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></p>
+                <p class="swipe-instruction funny-text error" ng-show="errorMessage" ng-bind-html="errorMessage"></p>
+
+                <div class="distance">
+                    Search range: <strong>{{search.distance | format_distance}}</strong>
+                    <rzslider rz-slider-floor="200" rz-slider-ceil="20000" rz-slider-model="search.distance" rz-slider-step="100" rz-slider-precision="0"></rzslider>
+                </div>
+            </footer>
         </div>
-        <div class="button-container">
-            <button class="shake-button" ng-click="getRandomLunchVenue(currentCategory)">
-                <span class="desktop-hide">Shake for meal</span>
-                <span class="mobile-hide">Find meal</span>
-            </button>
-            <div class="share-buttons">
-                <button facebook-share description="venue.name" class="facebook">f</button>
-                <button class="twitter" twitter-share description="venue.name">t</button>
+    </div>
+</div>
+
+<div class="container result" ng-show="venue" ng-class="[currentCategory + '-cat', loading?'loading':'', venue?'':'no-venue']">
+    <header>
+        <a href="#/" ng-click="venue = null" class="left icon icon-back">&lt;</a>
+    </header>
+    <div class="inside">
+        <div ng-if="!loading && !errorMessage">
+            <h1 class="venue-title">{{venue.name}}</h1>
+            <p class="venue-distance" ng-if="venue.location.distance">{{venue.location.distance | format_distance}} from you!</p>
+            <p ng-if="venue.location.address || venue.location.city" class="venue-address">
+                {{venue.location.address}}, {{venue.location.city}}
+            </p>
+            <div class="venue-tip-container">
+                <blockquote resize-blockquote class="venue-tip" ng-if="tip.text">&ldquo;{{tip.text}}&rdquo;</blockquote>
             </div>
         </div>
-    </section>
+        <h1 class="funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></h1>
+        <h1 class="funny-text error" ng-show="errorMessage" ng-bind-html="errorMessage"></h1>
+    </div>
+    <footer>
+        <div class="share-buttons" ng-if="!errorMessage && !loading && venue">
+            <ul>
+                <li><button facebook-share description="venue.name" class="facebook">facebook</button></li>
+                <li><button twitter-share description="venue.name" class="twitter">twitter</button></li>
+                <li ng-if="venue.location.lat"><a class="map button" ng-click="openMap($event)" ng-href="http://maps.apple.com/?q={{venue.location.lat}},{{venue.location.lng}}">map</a></li>
+                <li ng-if="venue.contact.phone"><a class="button phone" ng-click="callNumber($event, venue.contact.phone)">phone</a></li>
+            </ul>
+        </div>
+        <button class="shake-button" ng-click="getRandomLunchVenue(currentCategory)">Keep on shakin&apos;</button>
+    </footer>
 </div>
-<div class="container main" ng-hide="venue" ng-class="{'loading': loading}">
-    <ul class="swipe-container">
-        <li ng-repeat="cat in categories" ng-class="cat+'-category'" class="category">
-            <header class="top">Mealshaker</header>
-            <button class="main-button" ng-click="getRandomLunchVenue()"></button>
-            <p class="swipe-instruction desktop-hide" ng-if="!loading && !errorMessage">Shake your phone to <br> find a place to eat.</p>
-            <p class="swipe-instruction mobile-hide" ng-if="!loading && !errorMessage">Click the icon to find a <br> place to eat.</p>
-            <p class="swipe-instruction funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></p>
-            <p class="swipe-instruction funny-text error" ng-show="errorMessage" ng-bind-html="errorMessage"></p>
-            <footer class="tcc">
-                <div class="share-buttons">
-                    <button facebook-share class="facebook">f</button>
-                    <button class="twitter" twitter-share>t</button>
-                </div>
 
-                <span>Visit this site on your phone and shake it like a mad man<br></span>
-                made with&nbsp;&nbsp;♡&nbsp;&nbsp;by <a href="http://thecometcult.com/" target="_blank" ng-click="openInSystemBrowser($event, 'http://thecometcult.com')">The Comet Cult</a><br>
-                Powered by <a target="_blank" href="https://foursquare.com" ng-click="openInSystemBrowser($event, 'http://foursquare.com')">Foursquare</a>
-            </footer>
-        </li>
-    </ul>
+<div class="dialog" ng-if="dialog.text" ng-class="currentCategory + '-cat'">
+    <div class="dialog-container">
+        <div class="dialog-header"><span ng-click="hideDialog()" class="close">&times;</span></div>
+        <div class="dialog-body" ng-bind-html="dialog.text"></div>
+    </div>
 </div>
+

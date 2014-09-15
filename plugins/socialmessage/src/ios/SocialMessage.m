@@ -16,7 +16,7 @@
     NSString *image = [args objectForKey:@"image"];
     NSString *subject = [args objectForKey:@"subject"];
     NSArray *activityTypes = [[args objectForKey:@"activityTypes"] componentsSeparatedByString:@","];
-
+    
     NSMutableArray *items = [NSMutableArray new];
     if (text)
     {
@@ -32,12 +32,12 @@
         UIImage *imageFromUrl = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", image]]]];
         [items addObject:imageFromUrl];
     }
-
+    
     UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:Nil];
     [activity setValue:subject forKey:@"subject"];
-
+    
     NSMutableArray *exclusions = [[NSMutableArray alloc] init];
-
+    
     if (![activityTypes containsObject:@"PostToFacebook"])
     {
         [exclusions addObject: UIActivityTypePostToFacebook];
@@ -74,7 +74,7 @@
     {
         [exclusions addObject: UIActivityTypeSaveToCameraRoll];
     }
-
+    
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     {
         if (![activityTypes containsObject:@"AddToReadingList"])
@@ -98,9 +98,9 @@
             [exclusions addObject: UIActivityTypeAirDrop];
         }
     }
-
+    
     activity.excludedActivityTypes = exclusions;
-
+    
     [self.viewController presentViewController:activity animated:YES completion:Nil];
 }
 
@@ -110,7 +110,7 @@
         CDVPluginResult *pluginResult;
         NSMutableDictionary *args = [command.arguments objectAtIndex:0];
         NSString *activityType = [args objectForKey:@"activityType"];
-    
+        
         if ([self serviceTypeFromString:activityType] != nil) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         } else {
@@ -118,7 +118,7 @@
         }
         NSString* payload = nil;
         // Some blocking logic...
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:payload];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:payload];
         // The sendPluginResult method is thread-safe.
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
@@ -145,7 +145,7 @@
         NSString *activityType = [args objectForKey:@"activityType"];
         CDVPluginResult *pluginResult;
         
-
+        
         NSString *serviceType = [self serviceTypeFromString:activityType];
         if (serviceType == nil) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_INVALID_ACTION messageAsString:@"unsupported service type"];

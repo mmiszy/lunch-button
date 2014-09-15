@@ -65,6 +65,11 @@ static NSMutableArray *publishPermissions;
     
     NSURL *url = [params objectForKey:@"url"];
     NSString *scheme = @"fb";
+
+    if (appId == nil) {
+        appId = (NSString *) [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"];
+    }
+
     if ([[url scheme] isEqualToString:[scheme stringByAppendingString:appId]] == FALSE) {
         return;
     }
