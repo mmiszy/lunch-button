@@ -1,7 +1,7 @@
 'use strict';
 angular.module('lunchButtonApp.social', [])
-.service('metaService', ['$window', function () {
-  return {
+.service('metaService', ['$window', '$location', function ($window, $location) {
+  var metaService = {
     getFacebookMetaTag: function (property) {
       var temp = document.querySelector('meta[property="og:' + property + '"]');
       return (temp && temp.getAttribute('content')) || '';
@@ -9,8 +9,16 @@ angular.module('lunchButtonApp.social', [])
     getTwitterMetaTag: function (property) {
       var temp = document.querySelector('meta[name="twitter:' + property + '"]');
       return (temp && temp.getAttribute('content')) || '';
+    },
+    getCurrentAbsoluteUrl: function () {
+      var url =  metaService.getFacebookMetaTag('url');
+      if (!$location.path().substr(1)) {
+        return url.replace(/\/?$/, '/');
+      }
+      return url + '#/' + $location.path().substr(1) + ($location.search().id ? ('?id=' + $location.search().id) : '');
     }
   };
+  return metaService;
 }])
 .service('cordovaShareService', ['$window', '$q', function ($window, $q) {
   return {
@@ -76,9 +84,8 @@ angular.module('lunchButtonApp.social', [])
     }
   };
 }])
-.directive('facebookShare', ['$window', '$log', '$timeout', 'metaService', 'cordovaShareService', 'Analytics', 'Utils',
-  function ($window, $log, $timeout, metaService, cordovaShareService, Analytics, Utils) {
-  var currentPlace;
+.directive('facebookShare', ['$window', '$log', '$timeout', '$location', 'metaService', 'cordovaShareService', 'Analytics', 'Utils',
+  function ($window, $log, $timeout, $location, metaService, cordovaShareService, Analytics, Utils) {
 
   function init (scope, elm) {
     elm.on('click', function (event) {
@@ -87,29 +94,36 @@ angular.module('lunchButtonApp.social', [])
       Analytics.trackEvent('interaction', 'share', 'facebook');
 
       var image = metaService.getFacebookMetaTag('image'),
-        description = metaService.getFacebookMetaTag('title'),
-        url = metaService.getFacebookMetaTag('url');
+        description = metaService.getFacebookMetaTag('description'),
+        url = $location.absUrl();
 
-      if (currentPlace) {
-        description = 'Going for a meal at ' + currentPlace + ' by using Mealshaker';
+      if (scope.description) {
+        description = 'I just found ' + scope.description + ' using Mealshaker!';
       }
 
       if (Utils.isCordova()) {
         return cordovaShareService.shareToFacebook({
           text: description,
           image: image,
-          url: url
+          url: metaService.getCurrentAbsoluteUrl()
         });
       } else {
-        $window.FB.ui({
-          method: 'feed',
-          link: url,
-          picture: image,
-          caption: description,
-          description: 'Shake to find a nearby place to eat!'
-        }, function (response) {
-          $log.log(response);
-        });
+        if (scope.description) {
+          $window.FB.ui({
+            method: 'feed',
+            name: description,
+            link: url,
+            picture: image.replace('facebook-sharer-image', 'facebook-sharer-square-image')
+          });
+        } else {
+          $window.FB.ui({
+            method: 'feed',
+            title: 'Mealshaker',
+            description: description,
+            link: url,
+            picture: image.replace('facebook-sharer-image', 'facebook-sharer-square-image')
+          });
+        }
       }
     });
   }
@@ -120,10 +134,6 @@ angular.module('lunchButtonApp.social', [])
       description: '='
     },
     link: function linking (scope, elm, attrs) {
-      scope.$watch('description', function (newVal) {
-        currentPlace = newVal;
-      });
-
       if (Utils.isCordova()) {
         init(scope, elm, attrs);
       } else {
@@ -146,9 +156,7 @@ angular.module('lunchButtonApp.social', [])
     }
   };
 }])
-.directive('twitterShare', ['$window', '$log', 'metaService', 'cordovaShareService', 'Analytics', 'Utils', function ($window, $log, metaService, cordovaShareService, Analytics, Utils) {
-  var currentPlace;
-
+.directive('twitterShare', ['$window', '$log', '$location', 'metaService', 'cordovaShareService', 'Analytics', 'Utils', function ($window, $log, $location, metaService, cordovaShareService, Analytics, Utils) {
   var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes';
 
   function trimVenueName (venueName) {
@@ -158,16 +166,16 @@ angular.module('lunchButtonApp.social', [])
     return venueName;
   }
 
-  function twitterDescription () {
+  function twitterDescription (scope) {
     var description = metaService.getTwitterMetaTag('description');
 
-    if (currentPlace) {
-      description = 'Going for a meal at ' + trimVenueName(currentPlace) + ' by using @Mealshaker';
+    if (scope.description) {
+      description = 'I just found ' + trimVenueName(scope.description) + ' using Mealshaker!';
     }
     return description;
   }
 
-  function webTwitterShare () {
+  function webTwitterShare (scope) {
     var winHeight = screen.height,
       winWidth = screen.width,
       width = 550,
@@ -179,7 +187,7 @@ angular.module('lunchButtonApp.social', [])
       top = Math.round((winHeight / 2) - (height / 2));
     }
 
-    $window.open(getParams(), 'intent', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+    $window.open(getParams(scope), 'intent', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
   }
 
   function init (scope, elm) {
@@ -190,21 +198,21 @@ angular.module('lunchButtonApp.social', [])
 
       if (Utils.isCordova()) {
         cordovaShareService.shareToTwitter({
-          text: twitterDescription(),
-          url: metaService.getTwitterMetaTag('url')
+          text: twitterDescription(scope),
+          url: metaService.getCurrentAbsoluteUrl()
         });
       } else {
-        webTwitterShare();
+        webTwitterShare(scope);
       }
     });
   }
 
-  function getParams () {
+  function getParams (scope) {
     var intent = 'https://twitter.com/intent/tweet';
     var params = {
-      url: metaService.getTwitterMetaTag('url'),
+      url: (scope && scope.description) ? $location.absUrl() : metaService.getTwitterMetaTag('url'),
       via: 'Mealshaker',
-      text: twitterDescription()
+      text: twitterDescription(scope)
     };
 
     var queryString = '';
@@ -230,10 +238,6 @@ angular.module('lunchButtonApp.social', [])
     restrict: 'A',
     link: function(scope, elm, attrs) {
       init(scope, elm, attrs);
-
-      scope.$watch('description', function (newVal) {
-        currentPlace = newVal;
-      });
     }
   };
 }]);

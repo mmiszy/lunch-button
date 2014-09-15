@@ -7,7 +7,7 @@
         <div class="swiper" ng-swipe-left="goTo('beer')" ng-swipe-right="goTo('meal')"></div>
         <div class="inside">
             <footer>
-                <button class="main-button" ng-click="getRandomLunchVenue()"></button>
+                <button class="main-button" ng-click="getLunchVenue()"></button>
                 <p class="swipe-instruction desktop-hide" ng-if="!loading && !errorMessage">Shake your phone to <br> find a place {{cat.text}}.</p>
                 <p class="swipe-instruction mobile-hide" ng-if="!loading && !errorMessage">Click the icon to <br> find a place {{cat.text}}.</p>
                 <p class="swipe-instruction funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></p>
@@ -24,7 +24,7 @@
 
 <div class="container result" ng-show="venue" ng-class="[currentCategory + '-cat', loading?'loading':'', venue?'':'no-venue']">
     <header>
-        <a href="#/" ng-click="venue = null" class="left icon icon-back">&lt;</a>
+        <a href="#/" ng-click="goBack($event)" class="left icon icon-back">&lt;</a>
     </header>
     <div class="inside">
         <div ng-if="!loading && !errorMessage">
@@ -49,7 +49,7 @@
                 <li ng-if="venue.contact.phone"><a class="button phone" ng-click="callNumber($event, venue.contact.phone)">phone</a></li>
             </ul>
         </div>
-        <button class="shake-button" ng-click="getRandomLunchVenue(currentCategory)">Keep on shakin&apos;</button>
+        <button class="shake-button" ng-click="getLunchVenue(currentCategory)">Keep on shakin&apos;</button>
     </footer>
 </div>
 

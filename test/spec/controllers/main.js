@@ -54,7 +54,7 @@ describe('Controller: MainCtrl', function () {
     });
 
     it('should show error', function () {
-      scope.getRandomLunchVenue();
+      scope.getLunchVenue();
       $timeout.flush();
       expect(scope.errorMessage).toBeTruthy();
     });

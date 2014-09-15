@@ -40,10 +40,12 @@ angular.module('lunchButtonApp')
         $window.navigator.splashscreen.hide();
       });
     }
+    
     function trackShake(event) {
       var eventId = event ? 'Shaked' : 'Clicked';
       Analytics.trackEvent('interaction', 'GetVenue', eventId);
     }
+    
     $scope.showVenue = function ($event, venue) {
       Analytics.trackPageView('ViewVenue');
       Analytics.trackEvent('interaction', 'ViewVenue', venue.name, venue.id);
@@ -79,7 +81,10 @@ angular.module('lunchButtonApp')
         $window.location.href = url;
       }
     };
-    $scope.getRandomLunchVenue = function (category, event) {
+
+    var cachedVenues = [];
+    
+    $scope.getLunchVenue = function (category, id, event) {
       if ($scope.loading) {
         return;
       }
@@ -94,33 +99,24 @@ angular.module('lunchButtonApp')
       $scope.errorMessage = '';
 
       var position;
-      Geolocation.getCurrentPosition()
-        .catch(function (errMsg) {
-          if (Utils.isCordova()) {
-            errMsg = 'You have denied Mealshaker permission to use Location Services. Go to Settings > Privacy > Location Services and enable Location Services for the app and try again.';
-          }
-          return $q.reject({
-            title: 'Could not get your location',
-            message: errMsg
-          });
-        })
-        .then(function (pos) {
+      getCurrentPosition().then(function (pos) {
           position = pos;
+
+          if (id) {
+            return $q.when({id: id});
+          }
+
+          if (cachedVenues && cachedVenues.length) {
+            return $q.when(cachedVenues).then(getRandomVenue);
+          }
 
           return Foursquareapi.getVenues(position, category, $scope.search.distance).catch(function () {
             return $q.reject({
               title: 'Network Issue',
               message: 'Out of Internetz?!\nConnect & Try again.'
             });
-          });
-        }).then(function (venues) {
-          if (!venues || !venues.length) {
-            return $q.reject({
-              title: 'No venues',
-              message: 'No venues found in ' + $filter('format_distance')($scope.search.distance)
-            });
-          }
-          var venue = Utils.getRandomArrayItem(venues);
+          }).then(getRandomVenue);
+        }).then(function (venue) {
           return Foursquareapi.getOneVenue(venue.id, position);
         }).then(function (venue) {
           Analytics.trackEvent('venue', 'found', venue.name, venue.id);
@@ -138,6 +134,10 @@ angular.module('lunchButtonApp')
           $scope.loading = false;
         });
     };
+
+    if ($location.search().id) {
+      $scope.getLunchVenue(null, $location.search().id);
+    }
 
     function changeLoadingText () {
       var index;
@@ -158,6 +158,31 @@ angular.module('lunchButtonApp')
       $timeout.cancel(loadingTimeout);
     }
 
+    function getRandomVenue (venues) {
+      if (!venues || !venues.length) {
+        return $q.reject({
+          title: 'No venues',
+          message: 'No venues found in ' + $filter('format_distance')($scope.search.distance)
+        });
+      }
+      var venue = Utils.popRandomArrayItem(venues);
+      cachedVenues = venues;
+      return $q.when(venue);
+    }
+
+    function getCurrentPosition () {
+      return Geolocation.getCurrentPosition()
+        .catch(function (errMsg) {
+          if (Utils.isCordova()) {
+            errMsg = 'You have denied Mealshaker permission to use Location Services. Go to Settings > Privacy > Location Services and enable Location Services for the app and try again.';
+          }
+          return $q.reject({
+            title: 'Could not get your location',
+            message: errMsg
+          });
+        });
+    }
+
     $scope.showPhoneNumber = function (number) {
       $scope.dialog = {
         text: $sce.trustAsHtml('Phone number:<br><span>' + number + '</span>')
@@ -172,6 +197,11 @@ angular.module('lunchButtonApp')
       $rootScope.currentCategory = where;
     };
 
+    $scope.goBack = function (e) {
+      $location.search('id', null);
+      $scope.venue = null;
+    };
+
     $scope.$watch('loading', function (newVal) {
       if (newVal === true) {
         changeLoadingText();
@@ -180,9 +210,15 @@ angular.module('lunchButtonApp')
       }
     });
 
+    $scope.$watch('venue', function (newVal) {
+      if (newVal && newVal.id) {
+        $location.search('id', newVal.id);
+      }
+    });
+
     $window.addEventListener('shake', function (event) {
       $scope.$apply(function () {
-        $scope.getRandomLunchVenue($scope.currentCategory, event);
+        $scope.getLunchVenue($scope.currentCategory, null, event);
       });
     }, false);
   }])

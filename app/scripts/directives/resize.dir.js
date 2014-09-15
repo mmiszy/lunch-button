@@ -39,7 +39,8 @@ angular.module('lunchButtonApp.resize', [])
       }
       var dupdate = Utils.debounce(update, 50, true);
 
-      $timeout(dupdate);
+      $timeout(update);
+      $timeout(update, 200);
       angular.element(window).off('resize', dupdate).on('resize', dupdate);
     }
   };

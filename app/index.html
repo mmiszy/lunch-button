@@ -26,16 +26,17 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <meta property="og:image" content="http://mealshaker.com/staticimages/facebook-sharer-image.png">
-    <meta property="og:title" content="Mealshaker - shake it to find a nearby place to eat!">
+    <meta property="og:title" content="Mealshaker">
     <meta property="og:site_name" content="Mealshaker"/>
     <meta property="og:url" content="http://mealshaker.com/">
+    <meta property="og:description" content="Shake your phone to find a place to eat or drink. Brutally simple and fun. Try it now - just open this page on your phone or download our iPhone app.">
     <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@Mealshaker">
     <meta name="twitter:url" content="http://mealshaker.com/">
     <meta name="twitter:title" content="Mealshaker">
-    <meta name="twitter:description" content="Shake to find a nearby place to eat!">
+    <meta name="twitter:description" content="Shake your phone to find a place to eat or drink.">
     <meta name="twitter:image" content="http://mealshaker.com/staticimages/twitter-sharer-image.png">
     <meta name="twitter:creator" content="@TheCometCult">
     <meta name="twitter:app:name:iphone" content="Mealshaker">
@@ -69,10 +70,10 @@
         <main role="main" ng-view ng-class="ngViewClasses" anim-class></main>
     </div>
 
-    <footer class="mobile-hide app-footer" ng-init="description = 'Mealshaker: Shake to find a nearby place to eat!'">
+    <footer class="mobile-hide app-footer">
         <ul>
-            <li><button facebook-share description="description" class="facebook">facebook</button></li>
-            <li><button twitter-share description="description" class="twitter">twitter</button></li>
+            <li><button facebook-share class="facebook">facebook</button></li>
+            <li><button twitter-share class="twitter">twitter</button></li>
         </ul>
         <p>
             <a href="mailto:contact@mealshaker.com">contact@mealshaker.com</a><br>
@@ -146,6 +147,12 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
       }
+
+      document.addEventListener('touchmove', function (e) {
+        if (Array.prototype.indexOf.call(e.target.parentNode.classList, 'scrollable') === -1) {
+          e.preventDefault();
+        }
+      });
     </script>
   </body>
 </html>

@@ -77,6 +77,10 @@
     <string>Mealshaker</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
+    <key>NSLocationUsageDescription</key>
+    <string>Fetch places around you</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Find great places to eat and drink</string>
     <key>NSMainNibFile~ipad</key>
     <string></string>
     <key>UIStatusBarHidden</key>
