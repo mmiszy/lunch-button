@@ -13,6 +13,7 @@ app/bower_components
 app/scripts/constants.js
 .ftppass
 
-www
-!www/config.xml
-!www/res
+/www
+/platforms/ios/www
+!/www/config.xml
+!/www/res
