@@ -1,3 +1,9 @@
+1.1.0
+=====
+- LB-35 Added venues links and improved sharing
+- LB-34 Added completely new design
+- LB-32 Fixed error message
+
 1.0.9 (iOS 1.0.1)
 =====
 - LB-27 Fixed error handling on geo-location and no-network
