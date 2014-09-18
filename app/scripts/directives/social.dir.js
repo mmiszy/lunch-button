@@ -12,10 +12,10 @@ angular.module('lunchButtonApp.social', [])
     },
     getCurrentAbsoluteUrl: function () {
       var url =  metaService.getFacebookMetaTag('url');
-      if (!$location.path().substr(1)) {
+      if (!$location.search().id) {
         return url.replace(/\/?$/, '/');
       }
-      return url + '#/' + $location.path().substr(1) + ($location.search().id ? ('?id=' + $location.search().id) : '');
+      return url + '#/?id=' + $location.search().id;
     }
   };
   return metaService;
