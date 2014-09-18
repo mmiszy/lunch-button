@@ -18,8 +18,8 @@ SocialMessage.prototype.send = function (message) {
     exec(null, null, "SocialMessage", "send", [message]);
 };
 
-SocialMessage.prototype.shareTo = function (shareData) {
-    exec(null, null, "SocialMessage", "shareTo", [shareData]);
+SocialMessage.prototype.shareTo = function (shareData, success, error) {
+    exec(success, error, "SocialMessage", "shareTo", [shareData]);
 };
 
 module.exports = new SocialMessage();
