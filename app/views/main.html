@@ -9,7 +9,7 @@
             <footer>
                 <button class="main-button" ng-click="getLunchVenue()"></button>
                 <p class="swipe-instruction desktop-hide" ng-if="!loading && !errorMessage">Shake your phone to <br> find a place {{cat.text}}.</p>
-                <p class="swipe-instruction mobile-hide" ng-if="!loading && !errorMessage">Click the icon to <br> find a place {{cat.text}}.</p>
+                <p class="swipe-instruction swipe-instruction-desktop mobile-hide" ng-if="!loading && !errorMessage" ng-click="getLunchVenue()">Click the icon to <br> find a place {{cat.text}}.</p>
                 <p class="swipe-instruction funny-text" ng-repeat="text in texts" ng-if="$index === loadingTextIndex" ng-bind="text"></p>
                 <p class="swipe-instruction funny-text error" ng-show="errorMessage" ng-bind-html="errorMessage"></p>
 
