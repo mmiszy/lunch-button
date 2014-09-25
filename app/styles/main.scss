@@ -269,10 +269,14 @@ header {
     font-weight: 800;
 }
 
+.swipe-instruction-desktop {
+    cursor: pointer;
+}
+
 .main-button {
     -webkit-appearance: none;
     width: 108.5px;
-    height: 81px;
+    height: 100px;
     background: url(../images/mealshaker.png) 0% 100% no-repeat;
     border: none;
     padding: 0;
