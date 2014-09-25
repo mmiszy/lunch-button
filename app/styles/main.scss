@@ -896,7 +896,7 @@ main.ready {
         width: $iphoneWidth;
         height: $iphoneHeight;
         margin: 0 auto;
-        top: 18px;
+        top: 0;
         padding: $iphonePaddingV $iphonePaddingH;
         background: url(../images/iphone.png) no-repeat 0 0;
         overflow: hidden;
@@ -913,38 +913,20 @@ main.ready {
     .app-ad {
         display: block;
         text-align: center;
-        margin-top: 70px;
+        margin-top: 50px;
 
         p {
             font: lighter 24px/36px 'Helvetica Neue Light', 'Helvetic Neue', 'Helvetica', sans-serif;
             max-width: 610px;
             margin: 30px auto;
         }
-
-        .download-app {
-            font: 17px/45px 'Helvetica Neue Medium', 'Helvetic Neue', 'Helvetica', sans-serif;
-            color: $color-meal-bg;
-            background: transparent;
-            border: 2px solid $color-meal-bg;
-            height: 45px;
-            padding: 0 20px;
-            border-radius: 5px;
-            display: inline-block;
-
-            &:focus {
-                outline: none;
-            }
-
-            &:active {
-                transform: translateY(1px);
-            }
-        }
     }
 
     .app-footer {
         position: static;
         width: 280px;
-        margin: 30px auto 80px;
+        margin: 10px auto 80px;
+        text-align: center;
 
         ul {
             list-style-type: none;
@@ -962,6 +944,26 @@ main.ready {
 
         a, p {
             color: #bfbfbf;
+        }
+
+        .download-app {
+            font: 17px/45px 'Helvetica Neue Medium', 'Helvetic Neue', 'Helvetica', sans-serif;
+            color: $color-meal-bg;
+            background: transparent;
+            border: 2px solid $color-meal-bg;
+            height: 45px;
+            padding: 0 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 0 0 1em;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:active {
+                transform: translateY(1px);
+            }
         }
 
         button {
