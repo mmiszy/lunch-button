@@ -489,6 +489,29 @@ header {
             @include transform(translate3D(0, 1px, 0));
         }
     }
+
+    li {
+        &:nth-child(2) {
+            margin-right: 10%;
+        }
+
+        &.disabled {
+            opacity: 0.4;
+
+            button, .button {
+                &:active {
+                    @include transform(translate3D(0, 0, 0));
+                }
+            }
+        }
+    }
+
+    label {
+        text-transform: uppercase;
+        font-size: 10px;
+        color: $color-button;
+        margin-left: 15%;
+    }
 }
 
 .info ul {
@@ -912,6 +935,10 @@ main.ready {
         height: $iphoneHeight;
         top: $iphonePaddingV;
         left: $iphonePaddingH;
+    }
+
+    .result footer .share-buttons {
+        padding: 0 20px 20px 20px;
     }
 
     .app-ad {
