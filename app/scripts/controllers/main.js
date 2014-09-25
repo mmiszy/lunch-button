@@ -62,10 +62,18 @@ angular.module('lunchButtonApp')
     };
 
     $scope.openMap = function ($event, url) {
+      if (!$scope.venue.location || !$scope.venue.location.lat) {
+          $event.preventDefault();
+          return;
+      }
       $scope.openInSystemBrowser($event, 'http://maps.apple.com/?q=' + $scope.venue.location.lat + ',' + $scope.venue.location.lng);
     };
 
     $scope.callNumber = function ($event, number) {
+      if (!number) {
+        $event.preventDefault();
+        return;
+      }
       if (Utils.isCordova() || Utils.isMobile()) {
         $window.location.href = 'tel:' + number;
       } else {

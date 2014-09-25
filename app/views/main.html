@@ -42,11 +42,12 @@
     </div>
     <footer>
         <div class="share-buttons" ng-if="!errorMessage && !loading && venue">
+            <label>Share</label>
             <ul>
                 <li><button facebook-share description="venue.name" class="facebook">facebook</button></li>
                 <li><button twitter-share description="venue.name" class="twitter">twitter</button></li>
-                <li ng-if="venue.location.lat"><a class="map button" ng-click="openMap($event)" ng-href="http://maps.apple.com/?q={{venue.location.lat}},{{venue.location.lng}}">map</a></li>
-                <li ng-if="venue.contact.phone"><a class="button phone" ng-click="callNumber($event, venue.contact.phone)">phone</a></li>
+                <li ng-class="{disabled: !venue.contact.phone}"><a class="button phone" ng-click="callNumber($event, venue.contact.phone)">phone</a></li>
+                <li ng-class="{disabled: !venue.location.lat}"><a class="map button" ng-click="openMap($event)" ng-href="http://maps.apple.com/?q={{venue.location.lat}},{{venue.location.lng}}">map</a></li>
             </ul>
         </div>
         <button class="shake-button" ng-click="getLunchVenue(currentCategory)">Keep on shakin&apos;</button>
