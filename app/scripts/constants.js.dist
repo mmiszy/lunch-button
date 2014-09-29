@@ -16,11 +16,13 @@ angular.module('lunchButtonApp')
       value: Object.create(null, {
         meal: {
           value: '4d4b7105d754a06374d81259'
+        },
+        beer: {
+          value: '4d4b7105d754a06376d81259'
         }
       })
     },
     EXCLUDED_CATEGORIES: {
       value: ['4bf58dd8d48988d1e0931735', '4bf58dd8d48988d16d941735']
     }
-  }))
-  .constant('MAX_DISTANCE', 25000);
+  }));
