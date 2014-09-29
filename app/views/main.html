@@ -1,10 +1,9 @@
-<div class="swipe-container main" ng-hide="venue" ng-class="{loading: loading}">
-    <div class="container swipe-item" ng-repeat="cat in categories" ng-show="currentCategory === cat.id" ng-class="[cat.id + '-cat']">
+<div class="swipe-container main" ng-hide="venue" ng-class="{loading: loading}" ng-swipe-left="goTo('beer')" ng-swipe-right="goTo('meal')">
+    <div class="container swipe-item" ng-repeat="cat in categories" ng-class="[cat.id === currentCategory ? 'selected' : '', cat.id + '-cat']">
         <header>
             <a href="#/info" class="left icon icon-info">i</a>
             <ul class="page-indicator right"><li ng-repeat="c in categories" ng-class="{selected: c.id === currentCategory}" ng-click="goTo(c.id)">&middot;</li></ul>
         </header>
-        <div class="swiper" ng-swipe-left="goTo('beer')" ng-swipe-right="goTo('meal')"></div>
         <div class="inside">
             <footer>
                 <button class="main-button" ng-click="getLunchVenue()"></button>
