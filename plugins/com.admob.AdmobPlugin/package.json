@@ -1,0 +1,22 @@
+{
+    "version": "1.0.1",
+    "name": "com.admob.admobplugin",
+    "cordova_name": "AdmobPlugin",
+    "description": "\n    Admob SDK Plugin for phonegap and cordova ,support ios and android,support admob v1 and admob v2\n        project home:https://github.com/admob-google/admob-phonegap",
+    "license": "Apache 2.0 License",
+    "keywords": [
+        "ad",
+        "admob",
+        "google",
+        "google-play-service",
+        "iad",
+        "flurry",
+        "device",
+        "adwhirl"
+    ],
+    "platforms": [
+        "android",
+        "ios"
+    ],
+    "engines": []
+}

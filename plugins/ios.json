@@ -43,6 +43,10 @@
                         {
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AdmobPlugin\"><param name=\"ios-package\" value=\"AdmobAdPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -52,19 +56,23 @@
                     "CoreGraphics.framework": [
                         {
                             "xml": "false",
-                            "count": 4
+                            "count": 5
                         }
                     ],
                     "AudioToolbox.framework": [
                         {
                             "xml": "true",
                             "count": 1
+                        },
+                        {
+                            "xml": "false",
+                            "count": 1
                         }
                     ],
                     "SystemConfiguration.framework": [
                         {
                             "xml": "false",
-                            "count": 1
+                            "count": 2
                         }
                     ],
                     "CoreData.framework": [
@@ -92,6 +100,42 @@
                         }
                     ],
                     "CoreLocation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "StoreKit.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "AdSupport.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "MessageUI.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "AVFoundation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "Foundation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "UIKit.framework": [
                         {
                             "xml": "false",
                             "count": 1
@@ -127,6 +171,9 @@
             "PACKAGE_NAME": "com.thecometcult.mealshaker"
         },
         "org.apache.cordova.geolocation": {
+            "PACKAGE_NAME": "com.thecometcult.mealshaker"
+        },
+        "com.admob.AdmobPlugin": {
             "PACKAGE_NAME": "com.thecometcult.mealshaker"
         }
     },

@@ -1,28 +1,15 @@
 angular.module('lunchButtonApp')
-  .constant('FOURSQUARE', Object.create(null, {
-    CLIENT_ID: {
-      value: CLIENT_ID_PLACEHOLDER
-    },
-    CLIENT_SECRET: {
-      value: CLIENT_SECRET_PLACEHOLDER
-    },
-    API_ADDRESS: {
-      value: 'https://api.foursquare.com/v2/'
-    },
-    API_VERSION: {
-      value: '20140107'
-    },
+  .constant('FOURSQUARE', {
+    CLIENT_ID: CLIENT_ID_PLACEHOLDER,
+    CLIENT_SECRET: CLIENT_SECRET_PLACEHOLDER,
+    API_ADDRESS: 'https://api.foursquare.com/v2/',
+    API_VERSION: '20140107',
     CATEGORIES: {
-      value: Object.create(null, {
-        meal: {
-          value: '4d4b7105d754a06374d81259'
-        },
-        beer: {
-          value: '4d4b7105d754a06376d81259'
-        }
-      })
+        meal: '4d4b7105d754a06374d81259',
+        beer: '4d4b7105d754a06376d81259'
     },
-    EXCLUDED_CATEGORIES: {
-      value: ['4bf58dd8d48988d1e0931735', '4bf58dd8d48988d16d941735']
-    }
-  }));
+    EXCLUDED_CATEGORIES: ['4bf58dd8d48988d1e0931735', '4bf58dd8d48988d16d941735']
+  })
+  .constant('ADS', {
+    ADMOB_BANNER_ID: ADMOB_BANNER_ID_PLACEHOLDER
+  });
