@@ -29,8 +29,8 @@ angular.module('lunchButtonApp')
     var lastTextIndex;
 
     var allTexts = {
-        meal: ['Rolling up some meatballs', 'Sniffing for hot sausage', 'Wrapping up tacos', 'Firing up the grill', 'Pouring some hot choco', 'Putting a cherry on top', 'Laying Bacon strips!', 'Opening duck season', 'Chickening out', 'Slicing up the pork'],
-        beer: ['Tap me an IPA please', 'Shaken, not stirred', 'A whiskey on the rock', 'A guinness a day, keeps the doctor away', 'In wine there is truth']
+      meal: ['Rolling up some meatballs', 'Sniffing for hot sausage', 'Wrapping up tacos', 'Firing up the grill', 'Pouring some hot choco', 'Putting a cherry on top', 'Laying Bacon strips!', 'Opening duck season', 'Chickening out', 'Slicing up the pork'],
+      beer: ['Tap me an IPA please', 'Shaken, not stirred', 'A whiskey on the rock', 'A guinness a day, keeps the doctor away', 'In wine there is truth']
     };
 
     $scope.texts = allTexts.meal;
@@ -61,10 +61,10 @@ angular.module('lunchButtonApp')
         });
     };
 
-    $scope.openMap = function ($event, url) {
+    $scope.openMap = function ($event) {
       if (!$scope.venue.location || !$scope.venue.location.lat) {
-          $event.preventDefault();
-          return;
+        $event.preventDefault();
+        return;
       }
       $scope.openInSystemBrowser($event, 'http://maps.apple.com/?q=' + $scope.venue.location.lat + ',' + $scope.venue.location.lng);
     };
@@ -108,39 +108,39 @@ angular.module('lunchButtonApp')
 
       var position;
       getCurrentPosition().then(function (pos) {
-          position = pos;
+        position = pos;
 
-          if (id) {
-            return $q.when({id: id});
-          }
+        if (id) {
+          return $q.when({id: id});
+        }
 
-          if (cachedVenues && cachedVenues.length) {
-            return $q.when(cachedVenues).then(getRandomVenue);
-          }
+        if (cachedVenues && cachedVenues.length) {
+          return $q.when(cachedVenues).then(getRandomVenue);
+        }
 
-          return Foursquareapi.getVenues(position, category, $scope.search.distance).catch(function () {
-            return $q.reject({
-              title: 'Network Issue',
-              message: 'Out of Internetz?!\nConnect & Try again.'
-            });
-          }).then(getRandomVenue);
-        }).then(function (venue) {
-          return Foursquareapi.getOneVenue(venue.id, position);
-        }).then(function (venue) {
-          Analytics.trackEvent('venue', 'found', venue.name, venue.id);
+        return Foursquareapi.getVenues(position, category, $scope.search.distance).catch(function () {
+          return $q.reject({
+            title: 'Network Issue',
+            message: 'Out of Internetz?!\nConnect & Try again.'
+          });
+        }).then(getRandomVenue);
+      }).then(function (venue) {
+        return Foursquareapi.getOneVenue(venue.id, position);
+      }).then(function (venue) {
+        Analytics.trackEvent('venue', 'found', venue.name, venue.id);
 
-          $scope.venue = venue;
-          $scope.tip = Foursquareapi.getRandomTipForVenue(venue);
-          $scope.done = true;
-        }).catch(function (errObj) {
-          if (Utils.isCordova()) {
-            $window.navigator.notification.alert(errObj.message, angular.noop, errObj.title);
-          } else {
-            $scope.errorMessage = $sce.trustAsHtml($filter('nl2br')(errObj.message));
-          }
-        }).finally(function () {
-          $scope.loading = false;
-        });
+        $scope.venue = venue;
+        $scope.tip = Foursquareapi.getRandomTipForVenue(venue);
+        $scope.done = true;
+      }).catch(function (errObj) {
+        if (Utils.isCordova()) {
+          $window.navigator.notification.alert(errObj.message, angular.noop, errObj.title);
+        } else {
+          $scope.errorMessage = $sce.trustAsHtml($filter('nl2br')(errObj.message));
+        }
+      }).finally(function () {
+        $scope.loading = false;
+      });
     };
 
     if ($location.search().id) {
@@ -205,7 +205,7 @@ angular.module('lunchButtonApp')
       $rootScope.currentCategory = where;
     };
 
-    $scope.goBack = function (e) {
+    $scope.goBack = function () {
       $location.search('id', null);
       $scope.venue = null;
     };

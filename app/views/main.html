@@ -1,4 +1,4 @@
-<div class="swipe-container main" ng-hide="venue" ng-class="{loading: loading}" ng-swipe-left="goTo('beer')" ng-swipe-right="goTo('meal')">
+<div class="swipe-container main mealshaker-draggable-transition" ng-hide="venue" ng-class="[loading ? 'loading' : '', currentCategory + '-cat-container']" mealshaker-draggable mealshaker-draggable-left="goTo('beer')" mealshaker-draggable-right="goTo('meal')">
     <div class="container swipe-item" ng-repeat="cat in categories" ng-class="[cat.id === currentCategory ? 'selected' : '', cat.id + '-cat']">
         <header>
             <a href="#/info" class="left icon icon-info">i</a>
@@ -51,9 +51,8 @@
         </div>
         <button class="shake-button" ng-click="getLunchVenue(currentCategory)">Keep on shakin&apos;</button>
     </footer>
+    <mealshaker-ad class="mealshaker-add-placeholder" visible="venue"></mealshaker-ad>
 </div>
-
-<mealshaker-add visible="venue"></mealshaker-add>
 
 <div class="dialog" ng-if="dialog.text" ng-class="currentCategory + '-cat'">
     <div class="dialog-container">
