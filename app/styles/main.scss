@@ -866,6 +866,10 @@ main.ready {
     display: none;
 }
 
+.cordova .result {
+    min-height: calc(100% - 50px);
+}
+
 
 @media screen and #{$rwdDesktop} {
     body {

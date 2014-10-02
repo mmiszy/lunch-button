@@ -52,6 +52,9 @@
     <description>
         Shake to find a place to eat
     </description>
+    <feature name="AdmobPlugin">
+        <param name="ios-package" value="AdmobAdPlugin" />
+    </feature>
     <name>Mealshaker</name>
     <description>
         Shake to find a place to eat
