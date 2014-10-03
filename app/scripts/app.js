@@ -9,7 +9,8 @@ angular.module('lunchButtonApp', [
   'rzModule',
   'lunchButtonApp.social',
   'lunchButtonApp.resize',
-  'lunchButtonApp.mealshakerAdd'
+  'lunchButtonApp.mealshakerAd',
+  'lunchButtonApp.mealshakerDraggable'
 ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider

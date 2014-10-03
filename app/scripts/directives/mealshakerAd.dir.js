@@ -1,6 +1,6 @@
 'use strict';
-angular.module('lunchButtonApp.mealshakerAdd', [])
-  .directive('mealshakerAdd', ['$window', '$document', '$rootScope', 'Utils', 'ADS', function ($window, $document, $rootScope, Utils, ADS) {
+angular.module('lunchButtonApp.mealshakerAd', [])
+  .directive('mealshakerAd', ['$window', '$document', '$rootScope', 'Utils', 'ADS', function ($window, $document, $rootScope, Utils, ADS) {
     var admobAd = $window.admobAd;
     var initialised = false;
 

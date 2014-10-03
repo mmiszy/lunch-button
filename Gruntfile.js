@@ -397,6 +397,8 @@ module.exports = function (grunt) {
     'copy:images'
   ]);
 
+  grunt.registerTask('deploy', ['build', 'ftp-deploy']);
+
   grunt.registerTask('default', [
     'jshint',
     'test',
