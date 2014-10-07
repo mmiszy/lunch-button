@@ -7,6 +7,7 @@ angular.module('lunchButtonApp', [
   'ngTouch',
   'ngAnimate',
   'rzModule',
+  'angularLocalStorage',
   'lunchButtonApp.social',
   'lunchButtonApp.resize',
   'lunchButtonApp.mealshakerAd',
