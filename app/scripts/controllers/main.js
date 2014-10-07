@@ -2,8 +2,8 @@
 
 angular.module('lunchButtonApp')
   .controller('MainCtrl',
-  ['$scope', '$rootScope', '$window', '$timeout', '$q', '$sce', '$filter', '$location', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics',
-  function ($scope, $rootScope, $window, $timeout, $q, $sce, $filter, $location, Foursquareapi, Geolocation, Utils, Analytics) {
+  ['$scope', '$rootScope', '$window', '$timeout', '$q', '$sce', '$filter', '$location', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics', 'storage',
+  function ($scope, $rootScope, $window, $timeout, $q, $sce, $filter, $location, Foursquareapi, Geolocation, Utils, Analytics, storage) {
     $scope.categories = [{
       id: 'meal',
       text: 'to eat'
@@ -13,7 +13,7 @@ angular.module('lunchButtonApp')
     }];
     $scope.search = {};
     $scope.loadingTextIndex = '';
-    $scope.search.distance = 800;
+    storage.bind($scope, 'search.distance', {defaultValue: 800});
 
     $rootScope.currentCategory = $rootScope.currentCategory || 'meal';
 
