@@ -136,25 +136,43 @@ a, button {
 }
 
 .icon {
-    display: block;
-    width: 20px;
-    height: 20px;
-    @include box-sizing(border-box);
-    border: 2px solid black;
-    border-radius: 20px;
+    $iconSize: 20px;
+    $borderSize: 2px;
+    $paddingSize: 4px;
+
+
     text-indent: -9999em;
     opacity: 0.4;
-    background: 50% 50% / 20px 20px no-repeat;
+    position: relative;
+    width: $iconSize;
+    height: $iconSize;
+    padding: $paddingSize;
 
-    &.icon-info {
+    &, &::after {
+        display: block;
+        border-radius: $iconSize - 2 * $borderSize;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: $paddingSize;
+        left: $paddingSize;
+        width: $iconSize - 2 * $borderSize;
+        height: $iconSize - 2 * $borderSize;
+        background: 50% 50% / 20px 20px no-repeat;
+        border: $borderSize solid black;
+    }
+
+    &.icon-info::after {
         background-image: url(../images/icon-info.png);
     }
 
-    &.icon-close {
+    &.icon-close::after {
         background-image: url(../images/icon-close.png);
     }
 
-    &.icon-back {
+    &.icon-back::after {
         background-image: url(../images/icon-back.png);
     }
 }
