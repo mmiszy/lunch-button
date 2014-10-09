@@ -115,7 +115,7 @@ p {
 footer {
     position: absolute;
     z-index: 0;
-    bottom: 10px;
+    bottom: 0;
     width: calc(100% - 60px);
 
     &.inside {
