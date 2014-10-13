@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		117A0E23CCCC4AB2BD1A5166 /* AdmobAdPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFC95C42154599A512DCB4 /* AdmobAdPlugin.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };

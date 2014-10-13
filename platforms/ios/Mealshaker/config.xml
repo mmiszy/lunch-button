@@ -52,7 +52,6 @@
     <description>
         Shake to find a place to eat
     </description>
-    <feature name="http://api.phonegap.com/1.0/device" />
     <feature name="AdmobPlugin">
         <param name="ios-package" value="AdmobAdPlugin" />
     </feature>
@@ -63,6 +62,7 @@
     <author email="hello@thecometcult.com" href="http://thecometcult.com">
         The Comet Cult Team
     </author>
+    <feature name="http://api.phonegap.com/1.0/device" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="EnableLocation" value="true" />
