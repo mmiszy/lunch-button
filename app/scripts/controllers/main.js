@@ -4,6 +4,8 @@ angular.module('lunchButtonApp')
   .controller('MainCtrl',
   ['$scope', '$rootScope', '$window', '$timeout', '$q', '$sce', '$filter', '$location', 'Foursquareapi', 'Geolocation', 'Utils', 'Analytics', 'storage',
   function ($scope, $rootScope, $window, $timeout, $q, $sce, $filter, $location, Foursquareapi, Geolocation, Utils, Analytics, storage) {
+    var TEXT_TIMEOUT = 2000;
+
     $scope.categories = [{
       id: 'meal',
       text: 'to eat'
@@ -97,6 +99,8 @@ angular.module('lunchButtonApp')
         return;
       }
 
+      var minimumTimeout = $timeout(angular.noop, TEXT_TIMEOUT);
+
       category = category || $rootScope.currentCategory || 'meal';
       $scope.texts = allTexts[category];
 
@@ -126,6 +130,10 @@ angular.module('lunchButtonApp')
         }).then(getRandomVenue);
       }).then(function (venue) {
         return Foursquareapi.getOneVenue(venue.id, position);
+      }).then(function (venue) {
+        return minimumTimeout.then(function () {
+          return venue;
+        });
       }).then(function (venue) {
         Analytics.trackEvent('venue', 'found', venue.name, venue.id);
 
@@ -158,7 +166,7 @@ angular.module('lunchButtonApp')
       lastTextIndex = index;
 
       $scope.loadingTextIndex = index;
-      loadingTimeout = $timeout(changeLoadingText, 2000);
+      loadingTimeout = $timeout(changeLoadingText, TEXT_TIMEOUT);
     }
 
     function cancelLoadingText () {
