@@ -27,7 +27,7 @@
     </header>
     <div class="inside">
         <div ng-if="!loading && !errorMessage">
-            <h1 class="venue-title">{{venue.name}}</h1>
+            <a ng-href="{{venue.canonicalUrl}}" target="_blank"><h1 class="venue-title">{{venue.name}}</h1></a>
             <p class="venue-distance" ng-if="venue.location.distance">{{venue.location.distance | format_distance}} from you!</p>
             <p ng-if="venue.location.address || venue.location.city" class="venue-address">
                 {{venue.location.address}}, {{venue.location.city}}

@@ -42,12 +42,12 @@ angular.module('lunchButtonApp')
         $window.navigator.splashscreen.hide();
       });
     }
-    
+
     function trackShake(event) {
       var eventId = event ? 'Shaked' : 'Clicked';
       Analytics.trackEvent('interaction', 'GetVenue', eventId);
     }
-    
+
     $scope.showVenue = function ($event, venue) {
       Analytics.trackPageView('ViewVenue');
       Analytics.trackEvent('interaction', 'ViewVenue', venue.name, venue.id);
@@ -93,7 +93,9 @@ angular.module('lunchButtonApp')
     };
 
     var cachedVenues = [];
-    
+    var lastDistance;
+    var lastCategory;
+
     $scope.getLunchVenue = function (category, id, event) {
       if ($scope.loading) {
         return;
@@ -102,6 +104,10 @@ angular.module('lunchButtonApp')
       var minimumTimeout = $timeout(angular.noop, TEXT_TIMEOUT);
 
       category = category || $rootScope.currentCategory || 'meal';
+
+      lastDistance = $scope.search.distance;
+      lastCategory = category;
+
       $scope.texts = allTexts[category];
 
       trackShake(event);
@@ -118,7 +124,10 @@ angular.module('lunchButtonApp')
           return $q.when({id: id});
         }
 
-        if (cachedVenues && cachedVenues.length) {
+        // if distance or category are changed, cache needs to be invalidated
+        if (lastDistance === $scope.search.distance &&
+          lastCategory === category &&
+          cachedVenues && cachedVenues.length) {
           return $q.when(cachedVenues).then(getRandomVenue);
         }
 
